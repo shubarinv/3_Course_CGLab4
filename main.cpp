@@ -6,8 +6,7 @@ void programQuit([[maybe_unused]] int key, [[maybe_unused]] int action, Applicat
 }
 
 int main(int argc, char *argv[]) {
-  Application app;
-  app.init({640, 480}, argc, argv);
+  Application app({640, 480}, argc, argv);
   Application::setOpenGLFlags();
   app.registerKeyCallback(GLFW_KEY_ESCAPE, programQuit);
 

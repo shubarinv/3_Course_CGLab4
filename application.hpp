@@ -33,7 +33,9 @@ class Application {
 	glfwSetKeyCallback(window->getGLFWWindow(), keyCallback);
 	glfwSetWindowUserPointer(window->getGLFWWindow(), this);
   }
-
+  Application(glm::vec2 windowSize, [[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
+	init(windowSize, argc, argv);
+  }
   /**
    * @brief registers callback for keypress
    * @param key GLFW_key you want to register callback for
