@@ -22,7 +22,7 @@ include_directories(${OPENGL_INCLUDE_DIRS} ${GLFW_INCLUDE_DIRS} ${GLM_INCLUDE_DI
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(cgLabs libs/glad/src/glad.c main.cpp application.hpp  window.hpp shader.hpp vertex_buffer.hpp vertex_array.hpp)
+add_executable(cgLabs libs/glad/src/glad.c main.cpp application.hpp  window.hpp shader.hpp vertex_buffer.hpp vertex_array.hpp vertex_buffer_layout.hpp buffer.hpp)
 
 
 if (WIN32)

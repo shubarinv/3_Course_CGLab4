@@ -42,10 +42,12 @@ class Window {
 
 	if (isMac()) {
 	  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
 	  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	  LOG_S(INFO) << "System: MacOS";
 	}
-
+	glfwWindowHint(GLFW_FLOATING, GL_TRUE);
+	glfwWindowHint(GLFW_FOCUS_ON_SHOW, GL_TRUE);
 	// GLFW Window creation
 	bruteforceGLVersion();
 	glfwMakeContextCurrent(window);

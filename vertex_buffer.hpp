@@ -6,7 +6,8 @@
 #define CGLABS__VERTEX_BUFFER_HPP_
 #include <vector>
 #include "functions.hpp"
-class VertexBuffer {
+#include "buffer.hpp"
+class VertexBuffer : public Buffer {
  public:
   GLuint rendererID{0};
   explicit VertexBuffer(std::vector<float> points) {
@@ -14,13 +15,13 @@ class VertexBuffer {
 	glBindBuffer(GL_ARRAY_BUFFER, rendererID);
 	glBufferData(GL_ARRAY_BUFFER, points.size() * sizeof(float), points.data(), GL_STATIC_DRAW);
   }
-  void bind() const {
+  void bind() const override {
 	glBindBuffer(GL_ARRAY_BUFFER, rendererID);
   }
   static void unbind() {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
-  GLuint getID() const{
+  GLuint getID() const {
 	return rendererID;
   }
 };
