@@ -5,7 +5,6 @@
 #define CG_LABS_FUNCTIONS_HPP
 
 #if defined(__APPLE__)
-#define GL_SILENCE_DEPRECATION
 #endif
 #define LOGURU_WITH_STREAMS 1
 #include <glad/glad.h>
@@ -44,7 +43,7 @@ void logInit([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
  * @brief checks if program being built on windows
  * @return true if on Windows, false otherwise
  **/
-bool isWindows() {
+[[maybe_unused]] bool isWindows() {
 #if defined (__WIN32__)
   return true;
 #endif
@@ -59,7 +58,6 @@ bool isMac() {
   return true;
 #endif
   return false;
-
 }
 /**
  * @brief checks if program being built on Linux

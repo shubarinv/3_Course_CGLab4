@@ -1,6 +1,6 @@
 
 #include "application.hpp"
-void programQuit(int key, int action, Application *app) {
+void programQuit([[maybe_unused]] int key, [[maybe_unused]] int action, Application *app) {
   app->close();
   LOG_S(INFO) << "Quiting...";
 }

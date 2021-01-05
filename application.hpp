@@ -110,7 +110,7 @@ class Application {
    * @param action
    * @param mods
    */
-  void handleKeyboard([[maybe_unused]] GLFWwindow *_window, int key, int scancode, int action, [[maybe_unused]] int mods) {
+  void handleKeyboard([[maybe_unused]] GLFWwindow *_window, int key, [[maybe_unused]] int scancode, int action, [[maybe_unused]] int mods) {
 	auto requiredCallback = keyPressCallbacks.find(key);
 	if (requiredCallback != keyPressCallbacks.end()) {
 	  LOG_S(INFO) << "Calling registered callback";
