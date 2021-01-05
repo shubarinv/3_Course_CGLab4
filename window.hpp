@@ -7,7 +7,7 @@
 #include "functions.hpp"
 class Window {
  private:
-  GLFWwindow *window; ///< reference to glfw window
+  GLFWwindow *window= nullptr; ///< reference to glfw window
   glm::vec2 windowSize{};
 
  public:
@@ -35,19 +35,17 @@ class Window {
 	// GLFW lib init
 	glfwSetErrorCallback(glfwErrorHandler);
 	if (!glfwInit()) {
-	  LOG_S(FATAL) << "GLFW INIT FAILED";
+	  LOG_S(FATAL) << "GLFW INIT - FAIL";
 	  throw std::runtime_error("Failed to init glfw");
 	}
 	LOG_S(INFO) << "GLFW init - OK";
 
 	if (isMac()) {
-	  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);// Highest available version for macOS
-	  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);// Highest available version for macOS
-
 	  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	  LOG_S(INFO) << "System: MacOS";
 	}
+
 	// GLFW Window creation
 	bruteforceGLVersion();
 	glfwMakeContextCurrent(window);
@@ -59,15 +57,16 @@ class Window {
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 	  LOG_S(FATAL) << "GLAD init Failed";
 	}
+
+	GLint maxShaderTextures;
+	GLint maxTotalTextures;
+	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxShaderTextures);
+	glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &maxTotalTextures);
+	glEnable(GL_MULTISAMPLE);
 	LOG_S(INFO) << "Status: Using OpenGL v" << glGetString(GL_VERSION);
 	LOG_S(INFO) << "Renderer: " << glGetString(GL_RENDERER); /* get renderer string */
-	GLint maxShaderTextures;
-	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxShaderTextures);
-	GLint maxTotalTextures;
-	glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &maxTotalTextures);
 	LOG_S(INFO) << "Number of textures that can be accessed by the fragment shader: " << maxShaderTextures;
 	LOG_S(INFO) << "Total number of textures that can be used " << maxTotalTextures;
-	glEnable(GL_MULTISAMPLE);
 	LOG_S(INFO) << "Init DONE!";
   }
   static void glfwErrorHandler(int error, const char *message) {
