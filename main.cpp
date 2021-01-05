@@ -11,9 +11,8 @@ int main(int argc, char *argv[]) {
   Application::setOpenGLFlags();
   app.registerKeyCallback(GLFW_KEY_ESCAPE, programQuit);
 
-  while (!app.shouldClose) {
+  while (!app.getShouldClose()) {
 	glClear(GL_COLOR_BUFFER_BIT);
-	// 1rst attribute buffer : vertices
 	glCall(glfwSwapBuffers(app.getWindow()->getGLFWWindow()));
 	glfwPollEvents();
   }

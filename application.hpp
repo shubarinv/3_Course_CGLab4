@@ -10,18 +10,18 @@
 #include "window.hpp"
 
 class Application {
+ private:
   Window *window{};
   typedef void (*functionType)(int, int, Application *);
   std::map<int, functionType> keyPressCallbacks;
-
+  bool shouldClose{false};
  public:
   [[nodiscard]] Window *getWindow() const {
 	return window;
   }
 
-  bool shouldClose{false};
-  void init(glm::vec2 windowSize,[[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
-	LOG_S(INFO)<<"Hello world!";
+  void init(glm::vec2 windowSize, [[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
+	LOG_S(INFO) << "Hello world!";
 	LOG_SCOPE_F(INFO, "Libs init");
 	logInit(argc, argv);
 	window = new Window(windowSize);
@@ -69,6 +69,9 @@ class Application {
 	LOG_S(INFO) << "Application destroyed";
   }
 
+  bool getShouldClose() const {
+	return shouldClose;
+  }
  private:
   void handleKeyboard([[maybe_unused]] GLFWwindow *_window, int key, int scancode, int action, [[maybe_unused]] int mods) {
 	auto requiredCallback = keyPressCallbacks.find(key);
