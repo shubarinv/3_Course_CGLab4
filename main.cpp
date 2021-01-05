@@ -3,6 +3,7 @@
 #include "shader.hpp"
 #include "vertex_buffer.hpp"
 #include "vertex_array.hpp"
+#include "renderer.hpp"
 void programQuit([[maybe_unused]] int key, [[maybe_unused]] int action, Application *app) {
   app->close();
   LOG_S(INFO) << "Quiting...";
@@ -21,19 +22,18 @@ int main(int argc, char *argv[]) {
   };
 
   VertexBuffer vbo(points);
-  VertexArray vao;
+
   VertexBufferLayout layout;
   layout.push<float>(3);      ///< number of params for each vertex
+
+  VertexArray vao;
   vao.addBuffer(vbo, layout);
-  vbo.bind();
 
   while (!app.getShouldClose()) {
 	shader.reload();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	shader.bind();
-	vao.bind();
-	// draw points 0-3 from the currently bound VAO with current in-use shader
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	Renderer::clear();
+	Renderer::draw(&vao, &shader, 3, GL_TRIANGLES);
+
 	glCall(glfwSwapBuffers(app.getWindow()->getGLFWWindow()));
 	glfwPollEvents();
   }

@@ -9,7 +9,11 @@
 #include "buffer.hpp"
 class VertexBuffer : public Buffer {
  public:
-  GLuint rendererID{0};
+
+  /**
+   * @brief Holds data about vertices
+   * @param points std::vector<float>
+   */
   explicit VertexBuffer(std::vector<float> points) {
 	glGenBuffers(1, &rendererID);
 	glBindBuffer(GL_ARRAY_BUFFER, rendererID);
