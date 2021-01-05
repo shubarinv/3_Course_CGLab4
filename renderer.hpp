@@ -7,8 +7,8 @@
 
 #include <string>
 
-#include "vertex_array.hpp"
 #include "shader.hpp"
+#include "vertex_array.hpp"
 
 class Renderer {
  public:
@@ -26,7 +26,7 @@ static void draw(VertexArray *vertexArray, IndexBuffer *indexBuffer, Shader *sha
   indexBuffer->bind();
   glCall(glDrawElements(mode, indexBuffer->getLength(), GL_UNSIGNED_INT, nullptr));
 }*/
-/**
+  /**
  * @brief Draws object on screen.
  * @param object reference to object you want to draw.
  * @param shader reference to shader you want to use.
@@ -49,10 +49,10 @@ static void draw(VertexArray *vertexArray, IndexBuffer *indexBuffer, Shader *sha
 	glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   }
-  static void draw(VertexArray *vao, Shader *shader,unsigned long range, GLuint mode = GL_TRIANGLES) {
-    vao->bind();
-    shader->bind();
-	glDrawArrays(mode, 0, range);
+  static void draw(VertexArray *vao, Shader *shader, unsigned long range, GLuint mode = GL_TRIANGLES) {
+	vao->bind();
+	shader->bind();
+	glCall(glDrawArrays(mode, 0, range));
   }
 };
 
