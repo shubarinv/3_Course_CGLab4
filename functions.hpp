@@ -7,7 +7,7 @@
 #if defined(__APPLE__)
 #endif
 #define LOGURU_WITH_STREAMS 1
-#include <glad/glad.h>
+#include <glad/glad.h> // should be before glfw3 include or compilation will fail
 #include <GLFW/glfw3.h>
 
 
@@ -23,13 +23,13 @@ void logInit([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
   loguru::add_file("main.log", loguru::Truncate, loguru::Verbosity_MAX);
 }
 #if defined(__APPLE__)
-#define ASSERT(X) \
+  #define ASSERT(X) \
 	if (!(X)) __builtin_trap()
 #endif
 
-#if defined (__WIN32__)
-#define ASSERT(X) \
-  if (!(X)) __debugbreak()
+#if defined(__WIN32__)
+  #define ASSERT(X) \
+	if (!(X)) __debugbreak()
 #endif
 /**
  * @brief checks if GL function call failed or succeeded
@@ -44,7 +44,7 @@ void logInit([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
  * @return true if on Windows, false otherwise
  **/
 [[maybe_unused]] bool isWindows() {
-#if defined (__WIN32__)
+#if defined(__WIN32__)
   return true;
 #endif
   return false;
@@ -54,7 +54,7 @@ void logInit([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
  * @return true if on macOS, false otherwise
  **/
 bool isMac() {
-#if defined (__APPLE__)
+#if defined(__APPLE__)
   return true;
 #endif
   return false;
@@ -64,21 +64,21 @@ bool isMac() {
  * @return true if on Linux, false otherwise
  **/
 bool isLinux() {
-#if defined (__unix__)
+#if defined(__unix__)
   return true;
 #endif
   return false;
 }
 std::string glErrorToString(GLenum error) {
   switch (error) {
-	case GL_INVALID_ENUM:return "INVALID ENUM";
-	case GL_INVALID_VALUE:return "INVALID VALUE";
-	case GL_INVALID_OPERATION:return "INVALID OPERATION";
-	case GL_STACK_OVERFLOW:return " STACK OVERFLOW";
-	case GL_STACK_UNDERFLOW:return " STACK UNDERFLOW";
-	case GL_OUT_OF_MEMORY:return "OUT OF MEMORY";
-	case GL_INVALID_FRAMEBUFFER_OPERATION:return "INVALID FRAMEBUFFER OPERATION";
-	default:return std::to_string(error);
+	case GL_INVALID_ENUM: return "INVALID ENUM";
+	case GL_INVALID_VALUE: return "INVALID VALUE";
+	case GL_INVALID_OPERATION: return "INVALID OPERATION";
+	case GL_STACK_OVERFLOW: return " STACK OVERFLOW";
+	case GL_STACK_UNDERFLOW: return " STACK UNDERFLOW";
+	case GL_OUT_OF_MEMORY: return "OUT OF MEMORY";
+	case GL_INVALID_FRAMEBUFFER_OPERATION: return "INVALID FRAMEBUFFER OPERATION";
+	default: return std::to_string(error);
   }
 }
 
@@ -93,7 +93,7 @@ bool glLogCall(const char *function = {}, const char *file = {}, int line = -1) 
   }
   while (GLenum error = glGetError()) {
 	LOG_S(ERROR) << "OpenGL error: " << glErrorToString(error) << " in file " << file << " in function " << function << " at line: " << line;
-	throw std::runtime_error("OpenGL error: "+glErrorToString(error));
+	throw std::runtime_error("OpenGL error: " + glErrorToString(error));
   }
   return true;
 }
@@ -102,7 +102,25 @@ bool glLogCall(const char *function = {}, const char *file = {}, int line = -1) 
  * @brief clears opengl errors
  **/
 void glClearErrors() {
-  while (glGetError() != GL_NO_ERROR);
+  while (glGetError() != GL_NO_ERROR)
+	;
 }
 
-#endif // CG_LABS_FUNCTIONS_HPP
+/**
+ * @brief translates std::vector<float> to std::vector<glm::vec3>
+ * @param arrayOfFloats
+ * @return returns empty array on error
+ */
+std::vector<glm::vec3> floatArrayToVec3Array(std::vector<float> arrayOfFloats) {
+  if (arrayOfFloats.size() % 3 != 0) {
+	LOG_S(ERROR) << "Cannot perform operation arrayOfFloats is not multiple of 3 (it's size is:" << arrayOfFloats.size() << ")";
+	return {};
+  }
+  std::vector<glm::vec3> vec3Array;
+  for (int i = 0; i < arrayOfFloats.size() - 1; i += 3) {
+	vec3Array.emplace_back(arrayOfFloats[i], arrayOfFloats[i + 1], arrayOfFloats[i + 2]);
+  }
+  return vec3Array;
+}
+
+#endif// CG_LABS_FUNCTIONS_HPP
