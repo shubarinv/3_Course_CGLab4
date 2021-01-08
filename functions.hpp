@@ -7,7 +7,7 @@
 #if defined(__APPLE__)
 #endif
 #define LOGURU_WITH_STREAMS 1
-#include <glad/glad.h> // should be before glfw3 include or compilation will fail
+#include <glad/glad.h>// should be before glfw3 include or compilation will fail
 #include <GLFW/glfw3.h>
 
 
@@ -121,6 +121,16 @@ std::vector<glm::vec3> floatArrayToVec3Array(std::vector<float> arrayOfFloats) {
 	vec3Array.emplace_back(arrayOfFloats[i], arrayOfFloats[i + 1], arrayOfFloats[i + 2]);
   }
   return vec3Array;
+}
+
+std::vector<float> vec3ArrayToFloatArray(std::vector<glm::vec3> arrayOfVec3) {
+  std::vector<float> floatArray{};
+  for (auto &vec3Element : arrayOfVec3) {
+	floatArray.push_back(vec3Element.x);
+	floatArray.push_back(vec3Element.y);
+	floatArray.push_back(vec3Element.z);
+  }
+  return floatArray;
 }
 
 #endif// CG_LABS_FUNCTIONS_HPP
