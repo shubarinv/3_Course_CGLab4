@@ -38,7 +38,8 @@ class Mesh {
 
  public:
   void draw(Shader *shader) {
-	if(texture!= nullptr)texture->bind();
+	if(texture!= nullptr)
+	  texture->bind();
 	Renderer::draw(vao, shader, coordinates.size() / 3, GL_TRIANGLES);
   }
 

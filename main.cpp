@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
 	  0.5f, -0.5f, 0.0f,
 	  -0.5f, -0.5f, 0.0f};
   Mesh test(points);
-  test.setColor(glm::vec3(0.f,0.8f,0.3f));
+ // test.setColor(glm::vec3(0.f,0.8f,0.3f));
   test.setTexture("textures/wood.png");
   shader.bind();
   shader.setUniform1i("u_Texture", 0);

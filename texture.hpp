@@ -7,14 +7,14 @@
 #include <utility>
 #include "libs/lodepng.cpp"
 #include "functions.hpp"
-class Texture : public Buffer {
+class Texture {
  private:
   unsigned int rendererID{};
   std::string filepath{};
   std::vector<unsigned char> localBuffer{};
   unsigned int width{0}, height{0};
  public:
-  explicit Texture(std::string _filepath) : Buffer({}) {
+  explicit Texture(std::string _filepath){
 	filepath = std::move(_filepath);
 	glCall(glGenTextures(1, &rendererID));
 	glCall(glBindTexture(GL_TEXTURE_2D, rendererID));
@@ -24,8 +24,9 @@ class Texture : public Buffer {
 	glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 	glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
-	glCall(glGenerateMipmap(GL_TEXTURE_2D));
+
 	glCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer.data()));
+	glCall(glGenerateMipmap(GL_TEXTURE_2D));
 	unbind();
   }
   ~Texture() {
