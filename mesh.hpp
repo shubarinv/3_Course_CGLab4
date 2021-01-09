@@ -9,11 +9,14 @@
 #include "color_buffer.hpp"
 #include "functions.hpp"
 #include "renderer.hpp"
+#include "texture.hpp"
+#include "texture_buffer.hpp"
 #include "vertex_array.hpp"
 #include "vertex_buffer.hpp"
 class Mesh {
   std::vector<float> coordinates;
   std::vector<Buffer> buffers;
+  Texture* texture;
   VertexArray *vao;
   Mesh() = default;
   explicit Mesh(std::vector<glm::vec3> _coordinates) {
@@ -22,19 +25,20 @@ class Mesh {
   }
   void setColor(const std::vector<glm::vec3> &colorsArray) {
 	if (colorsArray.size() * 3 != coordinates.size()) {
-	  LOG_S(ERROR)<<"Amount of elements in colorsArray("<<colorsArray.size()*3<<") doesn't match amount vertices<<coordinates<<. Will still try to set colors but this may cause problems";
+	  LOG_S(ERROR) << "Amount of elements in colorsArray(" << colorsArray.size() * 3 << ") doesn't match amount vertices<<coordinates<<. Will still try to set colors but this may cause problems";
 	}
 	addNewBuffer(ColorBuffer(colorsArray), true);
   }
   void setColor(const std::vector<float> &colorsArray) {
 	if (colorsArray.size() != coordinates.size()) {
-	  LOG_S(ERROR)<<"Amount of elements in colorsArray("<<colorsArray.size()<<") doesn't match amount vertices<<coordinates<<. Will still try to set colors but this may cause problems";
+	  LOG_S(ERROR) << "Amount of elements in colorsArray(" << colorsArray.size() << ") doesn't match amount vertices<<coordinates<<. Will still try to set colors but this may cause problems";
 	}
 	addNewBuffer(ColorBuffer(colorsArray), true);
   }
 
  public:
   void draw(Shader *shader) {
+	if(texture!= nullptr)texture->bind();
 	Renderer::draw(vao, shader, coordinates.size() / 3, GL_TRIANGLES);
   }
 
@@ -48,6 +52,7 @@ class Mesh {
 	  return;
 	}
 	addNewBuffer(VertexBuffer(coordinates));// Setting VBO
+
 	fillVAO();
   }
   void setColor(glm::vec3 color) {
@@ -59,6 +64,12 @@ class Mesh {
 	}
 	addNewBuffer(ColorBuffer(colors), true);
   }
+  void setTexture(std::string filePath) {
+	texture=new Texture(std::move(filePath));
+	auto texCoords = Texture::generateTextureCoords(coordinates.size());
+	addNewBuffer(TextureBuffer(texCoords));
+  }
+
  private:
   void addNewBuffer(Buffer _buffer, bool bReplace = false) {
 	bool wasReplaced = false;
@@ -77,11 +88,18 @@ class Mesh {
 	  buffers.push_back(_buffer);
   }
   void fillVAO() {
-	VertexBufferLayout layout;
-	layout.push<float>(3);///< number of params for each vertex
+	VertexBufferLayout layout3;
+	VertexBufferLayout layout2;
+	layout3.push<float>(3);///< number of params for each vertex
+	layout3.push<float>(2);///< number of params for each vertex
 	for (auto &buffer : buffers) {
-	  if (buffer.bufferType != Buffer::type::INDEX && buffer.bufferType != Buffer::type::OTHER)
-		vao->addBuffer(buffer, layout, buffer.attributeLocation);
+	  if (buffer.bufferType != Buffer::type::INDEX && buffer.bufferType != Buffer::type::OTHER) {
+		if (buffer.bufferType == Buffer::type::TEXTURE) {
+		  vao->addBuffer(buffer, layout2, buffer.attributeLocation);
+		} else {
+		  vao->addBuffer(buffer, layout3, buffer.attributeLocation);
+		}
+	  }
 	}
   }
   bool wasBufferDefined(Buffer::type bufferType) {
