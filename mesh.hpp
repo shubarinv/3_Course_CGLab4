@@ -16,8 +16,8 @@
 class Mesh {
   std::vector<float> coordinates;
   std::vector<Buffer> buffers;
-  Texture* texture;
-  VertexArray *vao;
+  Texture* texture{nullptr};
+  VertexArray *vao{nullptr};
   Mesh() = default;
   explicit Mesh(std::vector<glm::vec3> _coordinates) {
 	coordinates = vec3ArrayToFloatArray(std::move(_coordinates));
@@ -67,7 +67,7 @@ class Mesh {
   }
   void setTexture(std::string filePath) {
 	texture=new Texture(std::move(filePath));
-	auto texCoords = Texture::generateTextureCoords(coordinates.size());
+	auto texCoords = Texture::generateTextureCoords(coordinates.size()/3);
 	addNewBuffer(TextureBuffer(texCoords));
   }
 
@@ -92,7 +92,7 @@ class Mesh {
 	VertexBufferLayout layout3;
 	VertexBufferLayout layout2;
 	layout3.push<float>(3);///< number of params for each vertex
-	layout3.push<float>(2);///< number of params for each vertex
+	layout2.push<float>(2);///< number of params for each vertex
 	for (auto &buffer : buffers) {
 	  if (buffer.bufferType != Buffer::type::INDEX && buffer.bufferType != Buffer::type::OTHER) {
 		if (buffer.bufferType == Buffer::type::TEXTURE) {
