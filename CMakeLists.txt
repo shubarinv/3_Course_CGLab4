@@ -6,8 +6,10 @@ endif ()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(libs/glfw/include)
 set(glm_DIR libs/glm/cmake/glm) # if necessary
-
 include_directories(libs/glad/include)
+include_directories(libs/tinyobjloader)
+include_directories(libs/tinyobjloader/experimental)
+add_subdirectory(libs/tinyobjloader)
 find_package(OpenGL REQUIRED)
 if (WIN32)
     find_package(glm REQUIRED)
@@ -22,7 +24,7 @@ include_directories(${OPENGL_INCLUDE_DIRS} ${GLFW_INCLUDE_DIRS} ${GLM_INCLUDE_DI
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(cgLabs libs/glad/src/glad.c main.cpp application.hpp  window.hpp shader.hpp vertex_buffer.hpp vertex_array.hpp vertex_buffer_layout.hpp buffer.hpp renderer.hpp mesh.hpp vertex.hpp index_buffer.hpp color_buffer.hpp texture_buffer.hpp normals_buffer.hpp texture.hpp)
+add_executable(cgLabs libs/glad/src/glad.c main.cpp application.hpp  window.hpp shader.hpp vertex_buffer.hpp vertex_array.hpp vertex_buffer_layout.hpp buffer.hpp renderer.hpp mesh.hpp vertex.hpp index_buffer.hpp color_buffer.hpp texture_buffer.hpp normals_buffer.hpp texture.hpp obj_loader.hpp camera.hpp)
 
 
 if (WIN32)

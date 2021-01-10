@@ -11,7 +11,7 @@ class Buffer {
   enum type {
 	VERTEX,
 	NORMAL,
-	TEXTURE,
+	TEXTURE_COORDS,
 	COLOR,
 	INDEX,
 	OTHER
