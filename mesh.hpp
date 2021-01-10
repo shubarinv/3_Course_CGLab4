@@ -48,7 +48,7 @@ class Mesh {
 	if (texture != nullptr)
 	  texture->bind();
 	if (indexBuffer != nullptr) {
-	  Renderer::draw(indexBuffer, vao, shader,indexBufferSize, GL_TRIANGLES);
+	  Renderer::draw(indexBuffer, vao, shader, indexBufferSize, GL_TRIANGLES);
 	} else {
 	  Renderer::draw(vao, shader, coordinates.size() / 3, GL_TRIANGLES);
 	}
@@ -61,21 +61,13 @@ class Mesh {
   }
 
   explicit Mesh(const std::string& filepath) {
+	LOG_SCOPE_F(INFO, "Gonna load OBJ file");
 	ObjLoader objLoader;
 	auto mesh = objLoader.loadObj(filepath);
-	for (auto& vertex : mesh.attrib.vertices) {
-	  coordinates.push_back(vertex);
-	}
-	std::vector<float> texCoords;
-	for (auto& texCoord : mesh.attrib.texcoords) {
-	  texCoords.push_back(texCoord);
-	}
-	setTextureCoords(texCoords);
-	std::vector<float> normals;
-	for (auto& normal : mesh.attrib.normals) {
-	  normals.push_back(normal);
-	}
-	setNormals(normals);
+
+	coordinates = mesh.attrib.vertices;
+	setTextureCoords(mesh.attrib.texcoords);
+	setNormals(mesh.attrib.normals);
 	std::vector<u_int> indices;
 	for (auto& index : mesh.attrib.indices) {
 	  indices.push_back(index.vertex_index);
@@ -112,8 +104,11 @@ class Mesh {
   }
   Mesh* setTexture(std::string filePath) {
 	texture = new Texture(std::move(filePath));
-	auto texCoords = Texture::generateTextureCoords(coordinates.size() / 3);
-	addNewBuffer(TextureBuffer(texCoords));
+	if (!wasBufferDefined(Buffer::TEXTURE_COORDS)) {
+	  LOG_S(INFO) << "Generating textureCoords";
+	  auto texCoords = Texture::generateTextureCoords(coordinates.size() / 3);
+	  addNewBuffer(TextureBuffer(texCoords));
+	}
 	return this;
   }
 

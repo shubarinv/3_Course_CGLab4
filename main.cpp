@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
   Application::setOpenGLFlags();
   app.registerKeyCallback(GLFW_KEY_ESCAPE, programQuit);
   Shader shader("../shaders/basic_texture_shader.glsl", true);
-  Mesh mesh("../resources/models/cube.obj");
+  Mesh mesh("../resources/models/Tesla_Model.obj");
   Camera camera(app.getWindow()->getWindowSize());
 
   camera.moveTo({0, 0, 3});

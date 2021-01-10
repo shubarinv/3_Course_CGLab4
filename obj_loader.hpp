@@ -25,6 +25,7 @@
 #define TINYOBJ_LOADER_OPT_IMPLEMENTATION
 #include "tinyobj_loader_opt.h"
 class ObjLoader {
+
   struct loadedOBJ {
 	tinyobj_opt::attrib_t attrib;
 	std::vector<tinyobj_opt::shape_t> shapes;
@@ -272,7 +273,8 @@ class ObjLoader {
 	return data;
   }
 
-  loadedOBJ LoadObjAndConvert( const char* filename, int num_threads, bool verbose) {
+  loadedOBJ LoadObjAndConvert(const char* filename, int num_threads, bool verbose) {
+	LOG_S(INFO) << "Loading from " << filename;
 	tinyobj_opt::attrib_t attrib;
 	std::vector<tinyobj_opt::shape_t> shapes;
 	std::vector<tinyobj_opt::material_t> materials;
@@ -284,28 +286,37 @@ class ObjLoader {
 	  printf("failed to load file\n");
 	  exit(-1);
 	}
+	LOG_S(INFO) << "File loaded successfully";
 	auto load_t_end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double, std::milli> load_ms = load_t_end - load_t_begin;
 	if (verbose) {
 	  std::cout << "filesize: " << data_len << std::endl;
 	  std::cout << "load time: " << load_ms.count() << " [msecs]" << std::endl;
 	}
+	LOG_S(INFO) << "load time: " << load_ms.count() << " [msecs]";
 
 	tinyobj_opt::LoadOption option;
 	option.req_num_threads = num_threads;
 	option.verbose = verbose;
+	LOG_SCOPE_F(INFO, "Parsing mesh");
 	bool ret = parseObj(&attrib, &shapes, &materials, data, data_len, option);
 
 	if (!ret) {
 	  std::cerr << "Failed to parse .obj" << std::endl;
 	  throw std::runtime_error("Unable to parse .obj");
 	}
-
-	return {attrib,shapes,materials};
+	LOG_S(INFO) << "vertices: " << attrib.vertices.size();
+	LOG_S(INFO) << "indices: " << attrib.indices.size();
+	LOG_S(INFO) << "Normals: " << attrib.normals.size();
+	LOG_S(INFO) << "TexCoords: " << attrib.texcoords.size();
+	LOG_S(INFO) << "MatIds: " << attrib.material_ids.size();
+	LOG_S(INFO) << "Materials: " << materials.size();
+	LOG_S(INFO) << "Parsed OBJ file successfully";
+	return {attrib, shapes, materials};
   }
 
  public:
-  loadedOBJ loadObj(const std::string& filename,u_char threads=8,bool bVerbose=false) {
+  loadedOBJ loadObj(const std::string& filename, u_char threads = 8, bool bVerbose = false) {
 	return LoadObjAndConvert(filename.c_str(), threads, bVerbose);
   }
 };
