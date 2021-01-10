@@ -8,103 +8,118 @@
 
 #include "color_buffer.hpp"
 #include "functions.hpp"
+#include "index_buffer.hpp"
 #include "renderer.hpp"
 #include "texture.hpp"
 #include "texture_buffer.hpp"
+#include "vertex.hpp"
 #include "vertex_array.hpp"
 #include "vertex_buffer.hpp"
+
 class Mesh {
   std::vector<float> coordinates;
   std::vector<Buffer> buffers;
+
+  std::vector<Texture>textures;
+
   Texture* texture{nullptr};
-  VertexArray *vao{nullptr};
+  VertexArray* vao{nullptr};
   Mesh() = default;
-  explicit Mesh(std::vector<glm::vec3> _coordinates) {
-	coordinates = vec3ArrayToFloatArray(std::move(_coordinates));
-	vao = new VertexArray;
-  }
-  void setColor(const std::vector<glm::vec3> &colorsArray) {
+
+  Mesh* setColor(const std::vector<glm::vec3>& colorsArray) {
 	if (colorsArray.size() * 3 != coordinates.size()) {
 	  LOG_S(ERROR) << "Amount of elements in colorsArray(" << colorsArray.size() * 3 << ") doesn't match amount vertices<<coordinates<<. Will still try to set colors but this may cause problems";
 	}
 	addNewBuffer(ColorBuffer(colorsArray), true);
+	return this;
   }
-  void setColor(const std::vector<float> &colorsArray) {
+  Mesh* setColor(const std::vector<float>& colorsArray) {
 	if (colorsArray.size() != coordinates.size()) {
 	  LOG_S(ERROR) << "Amount of elements in colorsArray(" << colorsArray.size() << ") doesn't match amount vertices<<coordinates<<. Will still try to set colors but this may cause problems";
 	}
 	addNewBuffer(ColorBuffer(colorsArray), true);
+	return this;
   }
 
  public:
-  void draw(Shader *shader) {
-	if(texture!= nullptr)
+  Mesh* draw(Shader* shader) {
+	if (texture != nullptr)
 	  texture->bind();
-	Renderer::draw(vao, shader, coordinates.size() / 3, GL_TRIANGLES);
+	if (wasBufferDefined(Buffer::INDEX)) {
+	  // Todo add support for indices
+	} else {
+	  Renderer::draw(vao, shader, coordinates.size() / 3, GL_TRIANGLES);
+	}
+	return this;
   }
 
   explicit Mesh(std::vector<float> _coordinates) {
 	coordinates = std::move(_coordinates);
 	vao = new VertexArray;
   }
-  void compile() {
+  Mesh* compile() {
 	if (coordinates.empty()) {
 	  LOG_S(ERROR) << "Coordinates were not set!";
-	  return;
+	  return this;
 	}
 	addNewBuffer(VertexBuffer(coordinates));// Setting VBO
 
 	fillVAO();
+	return this;
   }
-  void setColor(glm::vec3 color) {
+  Mesh* setColor(glm::vec3 color) {
 	std::vector<float> colors;
-	for (auto &coord : coordinates) {
+	for (auto& coord : coordinates) {
 	  colors.push_back(color.r);
 	  colors.push_back(color.g);
 	  colors.push_back(color.b);
 	}
 	addNewBuffer(ColorBuffer(colors), true);
+	return this;
   }
-  void setTexture(std::string filePath) {
-	texture=new Texture(std::move(filePath));
-	auto texCoords = Texture::generateTextureCoords(coordinates.size()/3);
+  Mesh* setTexture(std::string filePath) {
+	texture = new Texture(std::move(filePath));
+	auto texCoords = Texture::generateTextureCoords(coordinates.size() / 3);
 	addNewBuffer(TextureBuffer(texCoords));
+	return this;
   }
 
  private:
-  void addNewBuffer(Buffer _buffer, bool bReplace = false) {
+  Mesh* addNewBuffer(Buffer _buffer, bool bReplace = false) {
 	bool wasReplaced = false;
-	for (auto &buffer : buffers) {
+	for (auto& buffer : buffers) {
 	  if (_buffer.bufferType == buffer.bufferType && buffer.bufferType != Buffer::OTHER) {
 		if (bReplace) {
 		  buffer = _buffer;
 		  wasReplaced = true;
 		} else {
 		  LOG_S(ERROR) << "Can't add buffer; buffer of same type already defined";
-		  return;
+		  return this;
 		}
 	  }
 	}
 	if (!wasReplaced)
 	  buffers.push_back(_buffer);
+	return this;
   }
-  void fillVAO() {
+  Mesh* fillVAO() {
 	VertexBufferLayout layout3;
 	VertexBufferLayout layout2;
 	layout3.push<float>(3);///< number of params for each vertex
 	layout2.push<float>(2);///< number of params for each vertex
-	for (auto &buffer : buffers) {
-	  if (buffer.bufferType != Buffer::type::INDEX && buffer.bufferType != Buffer::type::OTHER) {
-		if (buffer.bufferType == Buffer::type::TEXTURE) {
+	for (auto& buffer : buffers) {
+	  if (buffer.bufferType != Buffer::type::INDEX && buffer.bufferType != Buffer::type::OTHER) {// We skip indexBuffer
+		if (buffer.bufferType == Buffer::type::TEXTURE_COORDS) {
 		  vao->addBuffer(buffer, layout2, buffer.attributeLocation);
 		} else {
 		  vao->addBuffer(buffer, layout3, buffer.attributeLocation);
 		}
 	  }
 	}
+	return this;
   }
   bool wasBufferDefined(Buffer::type bufferType) {
-	for (auto &buffer : buffers) {
+	for (auto& buffer : buffers) {
 	  if (bufferType == buffer.bufferType) {
 		return true;
 	  }
@@ -112,5 +127,4 @@ class Mesh {
 	return false;
   }
 };
-
 #endif//CGLABS__MESH_HPP_

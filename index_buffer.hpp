@@ -14,13 +14,19 @@ class IndexBuffer : public Buffer {
    * @brief Holds data about vertices
    * @param points std::vector<float>
    */
-  explicit IndexBuffer(std::vector<float> points) : Buffer(std::move(points)) {
+  explicit IndexBuffer(const std::vector<unsigned int>& indices) : Buffer({}) {
 	bufferType = Buffer::type::INDEX;
 	attributeLocation=-1;
+	glCall(glGenBuffers(1, &rendererID));
+	glCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, rendererID));
+	glCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW));
   }
-  explicit IndexBuffer(std::vector<glm::vec3> coordinates) : Buffer(std::move(vec3ArrayToFloatArray(std::move(coordinates)))) {
-	bufferType = Buffer::type::INDEX;
-	attributeLocation=-1;
+  void bind() {
+	glCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, rendererID));
   }
+  [[maybe_unused]] static void unbind() {
+	glCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+  }
+
 };
 #endif//CGLABS__INDEX_BUFFER_HPP_
