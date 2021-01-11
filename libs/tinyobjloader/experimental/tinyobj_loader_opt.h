@@ -1454,7 +1454,7 @@ bool parseObj(attrib_t *attrib, std::vector<shape_t> *shapes,
     std::string material_filename =
         std::string(commands[mtllib_t_index][mtllib_i_index].mtllib_name,
                     commands[mtllib_t_index][mtllib_i_index].mtllib_name_len);
-     std::cout << "mtllib :" << material_filename << std::endl;
+     //std::cout << "mtllib :" << material_filename << std::endl;
 
     auto t1 = std::chrono::high_resolution_clock::now();
     if (material_filename.back() == '\r') {
@@ -1464,7 +1464,7 @@ bool parseObj(attrib_t *attrib, std::vector<shape_t> *shapes,
     if (ifs.good()) {
       LoadMtl(&material_map, materials, &ifs);
 
-       std::cout << "materials = " << materials->size() << std::endl;
+      // std::cout << "materials = " << materials->size() << std::endl;
 
       ifs.close();
     }

@@ -316,7 +316,7 @@ class ObjLoader {
   }
 
  public:
-  loadedOBJ loadObj(const std::string& filename, u_char threads = 8, bool bVerbose = false) {
+  loadedOBJ loadObj(const std::string& filename, u_char threads = -1, bool bVerbose = false) {
 	return LoadObjAndConvert(filename.c_str(), threads, bVerbose);
   }
 };
