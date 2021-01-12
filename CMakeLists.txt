@@ -7,9 +7,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(libs/glfw/include)
 set(glm_DIR libs/glm/cmake/glm) # if necessary
 include_directories(libs/glad/include)
-include_directories(libs/tinyobjloader)
-include_directories(libs/tinyobjloader/experimental)
-add_subdirectory(libs/tinyobjloader)
+include_directories(libs/assimp/include)
+add_subdirectory(libs/assimp)
 find_package(OpenGL REQUIRED)
 if (WIN32)
     find_package(glm REQUIRED)
@@ -28,8 +27,8 @@ add_executable(cgLabs libs/glad/src/glad.c main.cpp application.hpp  window.hpp 
 
 
 if (WIN32)
-    target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw3 ${GLFW_LIBRARIES} ${GLM_LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw3 ${GLFW_LIBRARIES} ${GLM_LIBRARIES} assimp)
 endif ()
 if (APPLE)
-    target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw ${GLFW3_LIBRARIES} ${GLM_LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw ${GLFW3_LIBRARIES} ${GLM_LIBRARIES} assimp)
 endif ()

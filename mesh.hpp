@@ -23,6 +23,7 @@ class Mesh {
   VertexArray* vao{nullptr};
   unsigned int indexBufferSize{0};
   IndexBuffer* indexBuffer{nullptr};
+  std::vector<Mesh> relatedMeshes;
   Mesh() = default;
   explicit Mesh(std::vector<glm::vec3> _coordinates) {
 	coordinates = vec3ArrayToFloatArray(std::move(_coordinates));
@@ -52,6 +53,9 @@ class Mesh {
 	} else {
 	  Renderer::draw(vao, shader, coordinates.size() / 3, GL_TRIANGLES);
 	}
+	for(auto &relatedMesh:relatedMeshes){
+	  relatedMesh.draw(shader);
+	}
 	return this;
   }
 
@@ -63,25 +67,24 @@ class Mesh {
   explicit Mesh(const std::string& filepath) {
 	LOG_SCOPE_F(INFO, "Gonna load OBJ file");
 	ObjLoader objLoader;
-	auto mesh = objLoader.loadObj(filepath);
+	auto meshes = objLoader.loadObj(filepath);
 
-	coordinates = mesh.attrib.vertices;
-	setTextureCoords(mesh.attrib.texcoords);
-	setNormals(mesh.attrib.normals);
-	std::vector<u_int> indices;
-	for (auto& index : mesh.attrib.indices) {
-	  indices.push_back(index.vertex_index);
+	coordinates = meshes.front().vertices;
+	setTextureCoords(meshes.front().texCoords);
+	setNormals(meshes.front().normals);
+	vao = new VertexArray;
+	for (int i = 1; i < meshes.size(); ++i) {
+	  relatedMeshes.emplace_back(meshes[i]);
+	  relatedMeshes.back().compile();
 	}
-	setIndices(indices);
-	//mesh.attrib.indices
-	/*for(auto&shape:mesh.shapes){
-
-	}*/
-	for (auto& material : mesh.materials) {
-	  LOG_S(INFO) << material.name;
-	}
+  }
+  explicit Mesh(const ObjLoader::loadedOBJ& loadedObjData) {
+	coordinates = loadedObjData.vertices;
+	setTextureCoords(loadedObjData.texCoords);
+	setNormals(loadedObjData.normals);
 	vao = new VertexArray;
   }
+
   Mesh* compile() {
 	if (coordinates.empty()) {
 	  LOG_S(ERROR) << "Coordinates were not set!";
