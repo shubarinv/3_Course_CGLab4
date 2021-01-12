@@ -9,23 +9,26 @@
 #include "color_buffer.hpp"
 #include "functions.hpp"
 #include "index_buffer.hpp"
+#include "normals_buffer.hpp"
+#include "obj_loader.hpp"
 #include "renderer.hpp"
 #include "texture.hpp"
 #include "texture_buffer.hpp"
-#include "vertex.hpp"
 #include "vertex_array.hpp"
 #include "vertex_buffer.hpp"
-
 class Mesh {
   std::vector<float> coordinates;
   std::vector<Buffer> buffers;
-
-  std::vector<Texture>textures;
-
   Texture* texture{nullptr};
   VertexArray* vao{nullptr};
+  unsigned int indexBufferSize{0};
+  IndexBuffer* indexBuffer{nullptr};
+  std::vector<Mesh> relatedMeshes;
   Mesh() = default;
-
+  explicit Mesh(std::vector<glm::vec3> _coordinates) {
+	coordinates = vec3ArrayToFloatArray(std::move(_coordinates));
+	vao = new VertexArray;
+  }
   Mesh* setColor(const std::vector<glm::vec3>& colorsArray) {
 	if (colorsArray.size() * 3 != coordinates.size()) {
 	  LOG_S(ERROR) << "Amount of elements in colorsArray(" << colorsArray.size() * 3 << ") doesn't match amount vertices<<coordinates<<. Will still try to set colors but this may cause problems";
@@ -45,10 +48,13 @@ class Mesh {
   Mesh* draw(Shader* shader) {
 	if (texture != nullptr)
 	  texture->bind();
-	if (wasBufferDefined(Buffer::INDEX)) {
-	  // Todo add support for indices
+	if (indexBuffer != nullptr) {
+	  Renderer::draw(indexBuffer, vao, shader, indexBufferSize, GL_TRIANGLES);
 	} else {
 	  Renderer::draw(vao, shader, coordinates.size() / 3, GL_TRIANGLES);
+	}
+	for(auto &relatedMesh:relatedMeshes){
+	  relatedMesh.draw(shader);
 	}
 	return this;
   }
@@ -57,6 +63,28 @@ class Mesh {
 	coordinates = std::move(_coordinates);
 	vao = new VertexArray;
   }
+
+  explicit Mesh(const std::string& filepath) {
+	LOG_SCOPE_F(INFO, "Gonna load OBJ file");
+	ObjLoader objLoader;
+	auto meshes = objLoader.loadObj(filepath);
+
+	coordinates = meshes.front().vertices;
+	setTextureCoords(meshes.front().texCoords);
+	setNormals(meshes.front().normals);
+	vao = new VertexArray;
+	for (int i = 1; i < meshes.size(); ++i) {
+	  relatedMeshes.emplace_back(meshes[i]);
+	  relatedMeshes.back().compile();
+	}
+  }
+  explicit Mesh(const ObjLoader::loadedOBJ& loadedObjData) {
+	coordinates = loadedObjData.vertices;
+	setTextureCoords(loadedObjData.texCoords);
+	setNormals(loadedObjData.normals);
+	vao = new VertexArray;
+  }
+
   Mesh* compile() {
 	if (coordinates.empty()) {
 	  LOG_S(ERROR) << "Coordinates were not set!";
@@ -79,9 +107,30 @@ class Mesh {
   }
   Mesh* setTexture(std::string filePath) {
 	texture = new Texture(std::move(filePath));
-	auto texCoords = Texture::generateTextureCoords(coordinates.size() / 3);
-	addNewBuffer(TextureBuffer(texCoords));
+	if (!wasBufferDefined(Buffer::TEXTURE_COORDS)) {
+	  LOG_S(INFO) << "Generating textureCoords";
+	  auto texCoords = Texture::generateTextureCoords(coordinates.size() / 3);
+	  addNewBuffer(TextureBuffer(texCoords));
+	}
 	return this;
+  }
+
+  Mesh* setNormals(std::vector<glm::vec3> normals) {
+	addNewBuffer(NormalsBuffer(std::move(normals)), true);
+	return this;
+  }
+  Mesh* setNormals(std::vector<float> normals) {
+	addNewBuffer(NormalsBuffer(std::move(normals)), true);
+	return this;
+  }
+  Mesh* setTextureCoords(std::vector<float> textureCoords) {
+	addNewBuffer(TextureBuffer(std::move(textureCoords)), true);
+	return this;
+  }
+
+  void setIndices(std::vector<unsigned int> indices) {
+	indexBufferSize = indices.size();
+	indexBuffer = new IndexBuffer(indices);
   }
 
  private:
@@ -126,5 +175,14 @@ class Mesh {
 	}
 	return false;
   }
+  Buffer* getBufferOfType(Buffer::type bufferType) {
+	for (auto& buffer : buffers) {
+	  if (bufferType == buffer.bufferType) {
+		return &buffer;
+	  }
+	}
+	return nullptr;
+  }
 };
+
 #endif//CGLABS__MESH_HPP_

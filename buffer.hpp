@@ -12,7 +12,6 @@ class Buffer {
 	VERTEX,
 	NORMAL,
 	TEXTURE_COORDS,
-	TEXTURE,
 	COLOR,
 	INDEX,
 	OTHER

@@ -9,9 +9,9 @@ class mar expands Actor;
 #exec MESHMAP NEW MESHMAP=mar MESH=mar
 #exec MESHMAP SCALE MESHMAP=mar X=0.1 Y=0.1 Z=0.2
 
-#exec TEXTURE_COORDS IMPORT NAME=Jtex1 FILE=..\3DS\m_rifl.bmp GROUP=Skins FLAGS=2
-#exec TEXTURE_COORDS IMPORT NAME=Jtex1 FILE=texture1.pcx GROUP=Skins PALETTE=Jtex1
-#exec MESHMAP SETTEXTURE MESHMAP=mar NUM=1 TEXTURE_COORDS=Jtex1
+#exec TEXTURE IMPORT NAME=Jtex1 FILE=..\3DS\m_rifl.bmp GROUP=Skins FLAGS=2
+#exec TEXTURE IMPORT NAME=Jtex1 FILE=texture1.pcx GROUP=Skins PALETTE=Jtex1
+#exec MESHMAP SETTEXTURE MESHMAP=mar NUM=1 TEXTURE=Jtex1
 
 defaultproperties
 {

@@ -1,0 +1,254 @@
+arguments: /Users/vhundef/CLionProjects/cgLabs/cgLabs
+Current dir: /Users/vhundef/CLionProjects/cgLabs
+File verbosity level: 9
+date       time         ( uptime  ) [ thread name/id ]                   file:line     v| 
+2021-01-12 13:23:00.953 (   0.000s) [main thread     ]             loguru.cpp:826   INFO| Logging to 'main.log', mode: 'w', verbosity: 9
+2021-01-12 13:23:00.993 (   0.041s) [main thread     ]             window.hpp:41    INFO| GLFW init - OK
+2021-01-12 13:23:00.993 (   0.041s) [main thread     ]             window.hpp:47    INFO| System: MacOS
+2021-01-12 13:23:00.993 (   0.041s) [main thread     ]             window.hpp:88    INFO| { Getting latest OpenGL
+2021-01-12 13:23:01.033 (   0.081s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.9 - FAIL
+2021-01-12 13:23:01.041 (   0.089s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.8 - FAIL
+2021-01-12 13:23:01.047 (   0.095s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.7 - FAIL
+2021-01-12 13:23:01.056 (   0.104s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.6 - FAIL
+2021-01-12 13:23:01.062 (   0.110s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.5 - FAIL
+2021-01-12 13:23:01.069 (   0.117s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.4 - FAIL
+2021-01-12 13:23:01.077 (   0.125s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.3 - FAIL
+2021-01-12 13:23:01.083 (   0.131s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.2 - FAIL
+2021-01-12 13:23:01.099 (   0.147s) [main thread     ]             window.hpp:99    INFO| .   Trying OpenGL v4.1 - OK
+2021-01-12 13:23:01.099 (   0.147s) [main thread     ]             window.hpp:88    INFO| } 0.106 s: Getting latest OpenGL
+2021-01-12 13:23:01.100 (   0.147s) [main thread     ]             window.hpp:68    INFO| Status: Using OpenGL v4.1 ATI-4.2.13
+2021-01-12 13:23:01.100 (   0.147s) [main thread     ]             window.hpp:69    INFO| Renderer: AMD Radeon RX 5700 XT OpenGL Engine
+2021-01-12 13:23:01.100 (   0.147s) [main thread     ]             window.hpp:70    INFO| Number of textures that can be accessed by the fragment shader: 16
+2021-01-12 13:23:01.100 (   0.147s) [main thread     ]             window.hpp:71    INFO| Total number of textures that can be used 80
+2021-01-12 13:23:01.100 (   0.147s) [main thread     ]             window.hpp:72    INFO| Init DONE!
+2021-01-12 13:23:01.100 (   0.147s) [main thread     ]        application.hpp:28    INFO| } 0.147 s: Libs init
+2021-01-12 13:23:01.100 (   0.147s) [main thread     ]        application.hpp:51    INFO| New callback was registered
+2021-01-12 13:23:01.100 (   0.147s) [main thread     ]             shader.hpp:33    INFO| { Shader init
+2021-01-12 13:23:01.100 (   0.148s) [main thread     ]             shader.hpp:125   INFO| .   Parsing shader at: ../shaders/basic_texture_shader.glsl
+2021-01-12 13:23:01.100 (   0.148s) [main thread     ]             shader.hpp:150   INFO| .   Shader parsed successfully
+2021-01-12 13:23:01.100 (   0.148s) [main thread     ]             shader.hpp:161   INFO| .   Trying to compile VertexShader 
+2021-01-12 13:23:01.101 (   0.148s) [main thread     ]             shader.hpp:188   INFO| .   shader compiled successfully
+2021-01-12 13:23:01.101 (   0.149s) [main thread     ]             shader.hpp:161   INFO| .   Trying to compile FragmentShader 
+2021-01-12 13:23:01.101 (   0.149s) [main thread     ]             shader.hpp:188   INFO| .   shader compiled successfully
+2021-01-12 13:23:01.101 (   0.149s) [main thread     ]             shader.hpp:37    INFO| .   Created shader with id: 1
+2021-01-12 13:23:01.101 (   0.149s) [main thread     ]             shader.hpp:92    INFO| .   Live reload enabled for Shader(0x7ffee359aa60) ID: 1
+2021-01-12 13:23:01.101 (   0.149s) [main thread     ]             shader.hpp:33    INFO| } 0.002 s: Shader init
+2021-01-12 13:23:01.101 (   0.149s) [main thread     ]               mesh.hpp:68    INFO| { Gonna load OBJ file
+2021-01-12 13:23:16.303 (  15.350s) [main thread     ]         obj_loader.hpp:21    INFO| .   Meshes: 35
+2021-01-12 13:23:16.303 (  15.350s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(0)
+2021-01-12 13:23:16.317 (  15.365s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 125856
+2021-01-12 13:23:16.317 (  15.365s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 83904
+2021-01-12 13:23:16.317 (  15.365s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 125856
+2021-01-12 13:23:16.317 (  15.365s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.320 (  15.368s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(1)
+2021-01-12 13:23:16.334 (  15.382s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 129888
+2021-01-12 13:23:16.334 (  15.382s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 86592
+2021-01-12 13:23:16.334 (  15.382s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 129888
+2021-01-12 13:23:16.334 (  15.382s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.337 (  15.385s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(2)
+2021-01-12 13:23:16.351 (  15.399s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 118656
+2021-01-12 13:23:16.351 (  15.399s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 79104
+2021-01-12 13:23:16.351 (  15.399s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 118656
+2021-01-12 13:23:16.351 (  15.399s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.354 (  15.402s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(3)
+2021-01-12 13:23:16.380 (  15.428s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 206856
+2021-01-12 13:23:16.380 (  15.428s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 137904
+2021-01-12 13:23:16.380 (  15.428s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 206856
+2021-01-12 13:23:16.380 (  15.428s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.385 (  15.433s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(4)
+2021-01-12 13:23:16.403 (  15.451s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 141948
+2021-01-12 13:23:16.403 (  15.451s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 94632
+2021-01-12 13:23:16.403 (  15.451s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 141948
+2021-01-12 13:23:16.403 (  15.451s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.407 (  15.455s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(5)
+2021-01-12 13:23:16.418 (  15.466s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 85248
+2021-01-12 13:23:16.418 (  15.466s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 56832
+2021-01-12 13:23:16.418 (  15.466s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 85248
+2021-01-12 13:23:16.418 (  15.466s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.420 (  15.468s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(6)
+2021-01-12 13:23:16.446 (  15.494s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 212832
+2021-01-12 13:23:16.446 (  15.494s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 141888
+2021-01-12 13:23:16.446 (  15.494s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 212832
+2021-01-12 13:23:16.446 (  15.494s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.452 (  15.499s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(7)
+2021-01-12 13:23:16.454 (  15.502s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 16704
+2021-01-12 13:23:16.454 (  15.502s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 11136
+2021-01-12 13:23:16.454 (  15.502s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 16704
+2021-01-12 13:23:16.454 (  15.502s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.454 (  15.502s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(8)
+2021-01-12 13:23:16.457 (  15.505s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 24804
+2021-01-12 13:23:16.457 (  15.505s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 16536
+2021-01-12 13:23:16.457 (  15.505s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 24804
+2021-01-12 13:23:16.457 (  15.505s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.458 (  15.506s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(9)
+2021-01-12 13:23:16.458 (  15.506s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 2412
+2021-01-12 13:23:16.458 (  15.506s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 1608
+2021-01-12 13:23:16.458 (  15.506s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 2412
+2021-01-12 13:23:16.458 (  15.506s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.458 (  15.506s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(10)
+2021-01-12 13:23:16.462 (  15.510s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 28800
+2021-01-12 13:23:16.462 (  15.510s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 19200
+2021-01-12 13:23:16.462 (  15.510s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 28800
+2021-01-12 13:23:16.462 (  15.510s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.463 (  15.511s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(11)
+2021-01-12 13:23:16.474 (  15.521s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 72576
+2021-01-12 13:23:16.474 (  15.521s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 48384
+2021-01-12 13:23:16.474 (  15.521s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 72576
+2021-01-12 13:23:16.474 (  15.521s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.475 (  15.523s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(12)
+2021-01-12 13:23:16.487 (  15.534s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 94176
+2021-01-12 13:23:16.487 (  15.534s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 62784
+2021-01-12 13:23:16.487 (  15.534s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 94176
+2021-01-12 13:23:16.487 (  15.534s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.489 (  15.537s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(13)
+2021-01-12 13:23:16.512 (  15.560s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 182880
+2021-01-12 13:23:16.512 (  15.560s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 121920
+2021-01-12 13:23:16.512 (  15.560s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 182880
+2021-01-12 13:23:16.512 (  15.560s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.516 (  15.564s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(14)
+2021-01-12 13:23:16.517 (  15.565s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 8928
+2021-01-12 13:23:16.517 (  15.565s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 5952
+2021-01-12 13:23:16.517 (  15.565s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 8928
+2021-01-12 13:23:16.517 (  15.565s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.518 (  15.565s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(15)
+2021-01-12 13:23:16.523 (  15.571s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 48960
+2021-01-12 13:23:16.523 (  15.571s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 32640
+2021-01-12 13:23:16.523 (  15.571s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 48960
+2021-01-12 13:23:16.523 (  15.571s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.524 (  15.572s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(16)
+2021-01-12 13:23:16.530 (  15.578s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 47232
+2021-01-12 13:23:16.530 (  15.578s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 31488
+2021-01-12 13:23:16.530 (  15.578s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 47232
+2021-01-12 13:23:16.530 (  15.578s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.531 (  15.579s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(17)
+2021-01-12 13:23:16.537 (  15.585s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 47232
+2021-01-12 13:23:16.537 (  15.585s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 31488
+2021-01-12 13:23:16.537 (  15.585s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 47232
+2021-01-12 13:23:16.537 (  15.585s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.538 (  15.586s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(18)
+2021-01-12 13:23:16.553 (  15.601s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 114192
+2021-01-12 13:23:16.553 (  15.601s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 76128
+2021-01-12 13:23:16.553 (  15.601s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 114192
+2021-01-12 13:23:16.553 (  15.601s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.556 (  15.603s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(19)
+2021-01-12 13:23:16.564 (  15.612s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 61056
+2021-01-12 13:23:16.564 (  15.612s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 40704
+2021-01-12 13:23:16.564 (  15.612s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 61056
+2021-01-12 13:23:16.564 (  15.612s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.565 (  15.613s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(20)
+2021-01-12 13:23:16.567 (  15.615s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 14544
+2021-01-12 13:23:16.567 (  15.615s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 9696
+2021-01-12 13:23:16.567 (  15.615s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 14544
+2021-01-12 13:23:16.567 (  15.615s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.568 (  15.615s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(21)
+2021-01-12 13:23:16.607 (  15.655s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 299520
+2021-01-12 13:23:16.607 (  15.655s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 199680
+2021-01-12 13:23:16.607 (  15.655s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 299520
+2021-01-12 13:23:16.607 (  15.655s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.615 (  15.663s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(22)
+2021-01-12 13:23:16.620 (  15.668s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 41472
+2021-01-12 13:23:16.620 (  15.668s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 27648
+2021-01-12 13:23:16.620 (  15.668s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 41472
+2021-01-12 13:23:16.620 (  15.668s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.621 (  15.669s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(23)
+2021-01-12 13:23:16.624 (  15.672s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 23040
+2021-01-12 13:23:16.624 (  15.672s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 15360
+2021-01-12 13:23:16.624 (  15.672s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 23040
+2021-01-12 13:23:16.624 (  15.672s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.624 (  15.672s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(24)
+2021-01-12 13:23:16.635 (  15.682s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 87552
+2021-01-12 13:23:16.635 (  15.683s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 58368
+2021-01-12 13:23:16.635 (  15.683s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 87552
+2021-01-12 13:23:16.635 (  15.683s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.637 (  15.684s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(25)
+2021-01-12 13:23:16.641 (  15.689s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 35712
+2021-01-12 13:23:16.641 (  15.689s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 23808
+2021-01-12 13:23:16.641 (  15.689s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 35712
+2021-01-12 13:23:16.641 (  15.689s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.642 (  15.690s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(26)
+2021-01-12 13:23:16.669 (  15.717s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 237312
+2021-01-12 13:23:16.669 (  15.717s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 158208
+2021-01-12 13:23:16.669 (  15.717s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 237312
+2021-01-12 13:23:16.669 (  15.717s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.675 (  15.723s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(27)
+2021-01-12 13:23:16.692 (  15.740s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 132192
+2021-01-12 13:23:16.692 (  15.740s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 88128
+2021-01-12 13:23:16.692 (  15.740s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 132192
+2021-01-12 13:23:16.692 (  15.740s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.695 (  15.743s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(28)
+2021-01-12 13:23:16.716 (  15.764s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 175104
+2021-01-12 13:23:16.717 (  15.764s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 116736
+2021-01-12 13:23:16.717 (  15.764s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 175104
+2021-01-12 13:23:16.717 (  15.764s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.721 (  15.769s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(29)
+2021-01-12 13:23:16.722 (  15.770s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 11520
+2021-01-12 13:23:16.723 (  15.770s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 7680
+2021-01-12 13:23:16.723 (  15.770s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 11520
+2021-01-12 13:23:16.723 (  15.770s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.723 (  15.771s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(30)
+2021-01-12 13:23:16.729 (  15.776s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 48672
+2021-01-12 13:23:16.729 (  15.776s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 32448
+2021-01-12 13:23:16.729 (  15.776s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 48672
+2021-01-12 13:23:16.729 (  15.776s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.730 (  15.778s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(31)
+2021-01-12 13:23:16.732 (  15.779s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 12528
+2021-01-12 13:23:16.732 (  15.779s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 8352
+2021-01-12 13:23:16.732 (  15.779s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 12528
+2021-01-12 13:23:16.732 (  15.779s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.732 (  15.780s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(32)
+2021-01-12 13:23:16.886 (  15.933s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 1122264
+2021-01-12 13:23:16.886 (  15.934s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 748176
+2021-01-12 13:23:16.886 (  15.934s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 1122264
+2021-01-12 13:23:16.886 (  15.934s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.914 (  15.961s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(33)
+2021-01-12 13:23:16.972 (  16.020s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 494208
+2021-01-12 13:23:16.972 (  16.020s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 329472
+2021-01-12 13:23:16.972 (  16.020s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 494208
+2021-01-12 13:23:16.972 (  16.020s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:16.985 (  16.032s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(34)
+2021-01-12 13:23:18.378 (  17.426s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 11022336
+2021-01-12 13:23:18.378 (  17.426s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 7348224
+2021-01-12 13:23:18.378 (  17.426s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 11022336
+2021-01-12 13:23:18.378 (  17.426s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-12 13:23:18.763 (  17.811s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 1
+2021-01-12 13:23:18.766 (  17.813s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 2
+2021-01-12 13:23:18.769 (  17.817s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 3
+2021-01-12 13:23:18.775 (  17.823s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 4
+2021-01-12 13:23:18.781 (  17.828s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 5
+2021-01-12 13:23:18.784 (  17.832s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 6
+2021-01-12 13:23:18.789 (  17.837s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 7
+2021-01-12 13:23:18.792 (  17.840s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 8
+2021-01-12 13:23:18.793 (  17.840s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 9
+2021-01-12 13:23:18.793 (  17.841s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 10
+2021-01-12 13:23:18.794 (  17.841s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 11
+2021-01-12 13:23:18.795 (  17.843s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 12
+2021-01-12 13:23:18.798 (  17.846s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 13
+2021-01-12 13:23:18.803 (  17.851s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 14
+2021-01-12 13:23:18.805 (  17.853s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 15
+2021-01-12 13:23:18.806 (  17.854s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 16
+2021-01-12 13:23:18.808 (  17.856s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 17
+2021-01-12 13:23:18.809 (  17.857s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 18
+2021-01-12 13:23:18.812 (  17.860s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 19
+2021-01-12 13:23:18.814 (  17.862s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 20
+2021-01-12 13:23:18.815 (  17.863s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 21
+2021-01-12 13:23:18.821 (  17.869s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 22
+2021-01-12 13:23:18.826 (  17.874s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 23
+2021-01-12 13:23:18.827 (  17.874s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 24
+2021-01-12 13:23:18.829 (  17.876s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 25
+2021-01-12 13:23:18.830 (  17.878s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 26
+2021-01-12 13:23:18.835 (  17.883s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 27
+2021-01-12 13:23:18.841 (  17.889s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 28
+2021-01-12 13:23:18.846 (  17.893s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 29
+2021-01-12 13:23:18.848 (  17.896s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 30
+2021-01-12 13:23:18.849 (  17.897s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 31
+2021-01-12 13:23:18.850 (  17.898s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 32
+2021-01-12 13:23:18.877 (  17.925s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 33
+2021-01-12 13:23:18.902 (  17.950s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 34
+2021-01-12 13:23:19.136 (  18.183s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 35
+2021-01-12 13:23:19.617 (  18.665s) [main thread     ]               mesh.hpp:68    INFO| } 18.516 s: Gonna load OBJ file
+2021-01-12 13:23:19.634 (  18.681s) [main thread     ]            texture.hpp:52    INFO| Texture loaded successfully!
+2021-01-12 13:23:39.838 (  38.885s) [main thread     ]        application.hpp:118   INFO| Calling registered callback
+2021-01-12 13:23:39.851 (  38.898s) [main thread     ]             window.hpp:80    INFO| GLFW window destroyed
+2021-01-12 13:23:39.851 (  38.898s) [main thread     ]             window.hpp:81    INFO| Window(0x7f9e5fc043a0) destroyed
+2021-01-12 13:23:39.851 (  38.899s) [main thread     ]               main.cpp:10    INFO| Quiting...
+2021-01-12 13:23:39.853 (  38.901s) [main thread     ]             loguru.cpp:526   INFO| atexit

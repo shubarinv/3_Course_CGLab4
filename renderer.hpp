@@ -54,6 +54,12 @@ static void draw(VertexArray *vertexArray, IndexBuffer *indexBuffer, Shader *sha
 	shader->bind();
 	glCall(glDrawArrays(mode, 0, range));
   }
+  static void draw(IndexBuffer *ibo,VertexArray*vao, Shader *shader,unsigned long range, GLuint mode = GL_TRIANGLES) {
+	vao->bind();
+	ibo->bind();
+	shader->bind();
+	glCall(glDrawElements(mode,range, GL_UNSIGNED_INT, nullptr));
+  }
 };
 
 #endif//CGLABS__RENDERER_HPP_
