@@ -28,6 +28,9 @@ class VertexArray {
 	glCall(glBindVertexArray(0));
   }
   void addBuffer(const Buffer &buffer, const VertexBufferLayout &layout, int vertexAttribIndex = 0) const {
+	if(layout.getElements().empty()){
+	  LOG_S(WARNING) << "Hey! you are trying to add empty layout, are you sure you meant to do it?";
+	}
 	unsigned int offset{0};
 	bind();
 	buffer.bind();
