@@ -164,6 +164,9 @@ class Shader {
   static unsigned int compileShader(int type, std::string &source, bool isReload = false) {
 	LOG_S(INFO) << "Trying to compile " << (type == GL_VERTEX_SHADER ? "VertexShader " : "FragmentShader ");
 	unsigned int id = glCreateShader(type);
+	if(source.length()<=24){
+	  LOG_S(FATAL) << "Shader source is empty ";
+	}
 	const char *src = source.c_str();
 	glShaderSource(id, 1, &src, nullptr);
 	glCompileShader(id);
