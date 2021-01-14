@@ -71,6 +71,9 @@ class Camera {
 	shader->setUniformMat4f("view", getView());
 	shader->setUniformMat4f("projection", getProjection());
   }
+  glm::vec3 getPosition(){
+	return position;
+  }
 };
 
 #endif//CGLABS__CAMERA_HPP_

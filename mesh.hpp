@@ -19,7 +19,7 @@
 class Mesh {
   std::vector<float> coordinates;
   std::vector<Buffer> buffers;
-  Texture* texture{nullptr};
+  std::vector<Texture*> textures;
   VertexArray* vao{nullptr};
   unsigned int indexBufferSize{0};
   IndexBuffer* indexBuffer{nullptr};
@@ -46,14 +46,16 @@ class Mesh {
 
  public:
   Mesh* draw(Shader* shader) {
-	if (texture != nullptr)
-	  texture->bind();
+	if (!textures.empty())
+	  for (int i = 0; i < textures.size(); ++i) {
+		textures[i]->bind(i);
+	  }
 	if (indexBuffer != nullptr) {
 	  Renderer::draw(indexBuffer, vao, shader, indexBufferSize, GL_TRIANGLES);
 	} else {
 	  Renderer::draw(vao, shader, coordinates.size() / 3, GL_TRIANGLES);
 	}
-	for(auto &relatedMesh:relatedMeshes){
+	for (auto& relatedMesh : relatedMeshes) {
 	  relatedMesh.draw(shader);
 	}
 	return this;
@@ -105,8 +107,8 @@ class Mesh {
 	addNewBuffer(ColorBuffer(colors), true);
 	return this;
   }
-  Mesh* setTexture(std::string filePath) {
-	texture = new Texture(std::move(filePath));
+  Mesh* addTexture(std::string filePath) {
+	textures.push_back(new Texture(std::move(filePath)));
 	if (!wasBufferDefined(Buffer::TEXTURE_COORDS)) {
 	  LOG_S(INFO) << "Generating textureCoords";
 	  auto texCoords = Texture::generateTextureCoords(coordinates.size() / 3);

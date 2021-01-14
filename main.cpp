@@ -35,25 +35,30 @@ int main(int argc, char *argv[]) {
   shader.bind();
 
   Mesh mesh("../resources/models/Crate1.obj");
-  mesh.setTexture("../resources/crate_1.png");
+  mesh.addTexture("../textures/crate.png");
+  mesh.addTexture("../textures/crate_specular.png");
 
   Camera camera(app.getWindow()->getWindowSize());
   camera.moveTo({0, 0, 4});
   camera.lookAt({0, 0, 0.1});
 
-  //shader.setUniform1i("u_Texture", 0);
+  shader.setUniform1i("u_Texture", 0);
   mesh.compile();
-  std::vector<glm::vec3> cameraPositions = getCoordsForVertices(0, 0, 2, 100);/// координаты для точек гиперболойды
+  std::vector<glm::vec3> cameraPositions = getCoordsForVertices(0, 0, 2, 500);/// координаты для точек гиперболойды
   int cameraPosition{0};
 
   DiffuseLight light("l_1", {cameraPositions[cameraPosition], {1, 1, 1}, 1});
+  shader.setUniform3f("light.ambient", {0.2f, 0.2f, 0.2f});
+  shader.setUniform3f("light.specular", {1.0f, 1.0f, 1.0f});
+
+  shader.setUniform1f("material.shininess", 64.0f);
   while (!app.getShouldClose()) {
 	//rotating scene
-	camera.setModel(glm::rotate(camera.getModel(), 0.006f, {0, 1, 0}));
+	//camera.setModel(glm::rotate(camera.getModel(), 0.001f, {0, 1, 0}));
 
 	light.moveTo(cameraPositions[cameraPosition]);
-	light.setIntensity(0.1);
-
+	light.setIntensity(1);
+	shader.setUniform3f("viewPos", camera.getPosition());
 	//updating data for shader
 	shader.reload();
 	camera.passDataToShader(&shader);
