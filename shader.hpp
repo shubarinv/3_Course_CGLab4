@@ -59,6 +59,10 @@ class Shader {
   [[maybe_unused]] void setUniform1i(const std::string &name, GLint value) {
 	glCall(glUniform1i(getUniformLocation(name), value));
   }
+
+  [[maybe_unused]] void setUniform1f(const std::string &name, GLfloat value) {
+	glCall(glUniform1f(getUniformLocation(name), value));
+  }
   /**
    * @brief Sets uniform with vec4
    * @param name name of the uniform

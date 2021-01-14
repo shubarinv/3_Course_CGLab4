@@ -5,6 +5,7 @@
 #ifndef CGLABS__CAMERA_HPP_
 #define CGLABS__CAMERA_HPP_
 #include "functions.hpp"
+#include "shader.hpp"
 class Camera {
   glm::vec3 position{};
   glm::vec3 lookingAt{};
@@ -64,6 +65,11 @@ class Camera {
 		position,
 		lookingAt,
 		glm::vec3(0, 1, 0));
+  }
+  void passDataToShader(Shader* shader) {
+	shader->setUniformMat4f("model", getModel());
+	shader->setUniformMat4f("view", getView());
+	shader->setUniformMat4f("projection", getProjection());
   }
 };
 
