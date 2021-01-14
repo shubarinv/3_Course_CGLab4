@@ -2,50 +2,50 @@ arguments: /Users/vhundef/CLionProjects/cgLabs/cgLabs
 Current dir: /Users/vhundef/CLionProjects/cgLabs
 File verbosity level: 9
 date       time         ( uptime  ) [ thread name/id ]                   file:line     v| 
-2021-01-14 11:15:47.226 (   0.003s) [main thread     ]             loguru.cpp:826   INFO| Logging to 'main.log', mode: 'w', verbosity: 9
-2021-01-14 11:15:47.273 (   0.050s) [main thread     ]             window.hpp:41    INFO| GLFW init - OK
-2021-01-14 11:15:47.273 (   0.050s) [main thread     ]             window.hpp:47    INFO| System: MacOS
-2021-01-14 11:15:47.273 (   0.050s) [main thread     ]             window.hpp:88    INFO| { Getting latest OpenGL
-2021-01-14 11:15:47.322 (   0.099s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.9 - FAIL
-2021-01-14 11:15:47.329 (   0.106s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.8 - FAIL
-2021-01-14 11:15:47.337 (   0.114s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.7 - FAIL
-2021-01-14 11:15:47.342 (   0.119s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.6 - FAIL
-2021-01-14 11:15:47.348 (   0.125s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.5 - FAIL
-2021-01-14 11:15:47.357 (   0.134s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.4 - FAIL
-2021-01-14 11:15:47.363 (   0.140s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.3 - FAIL
-2021-01-14 11:15:47.371 (   0.148s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.2 - FAIL
-2021-01-14 11:15:47.403 (   0.180s) [main thread     ]             window.hpp:99    INFO| .   Trying OpenGL v4.1 - OK
-2021-01-14 11:15:47.403 (   0.180s) [main thread     ]             window.hpp:88    INFO| } 0.130 s: Getting latest OpenGL
-2021-01-14 11:15:47.404 (   0.181s) [main thread     ]             window.hpp:68    INFO| Status: Using OpenGL v4.1 ATI-4.2.13
-2021-01-14 11:15:47.404 (   0.181s) [main thread     ]             window.hpp:69    INFO| Renderer: AMD Radeon RX 5700 XT OpenGL Engine
-2021-01-14 11:15:47.404 (   0.181s) [main thread     ]             window.hpp:70    INFO| Number of textures that can be accessed by the fragment shader: 16
-2021-01-14 11:15:47.404 (   0.181s) [main thread     ]             window.hpp:71    INFO| Total number of textures that can be used 80
-2021-01-14 11:15:47.404 (   0.181s) [main thread     ]             window.hpp:72    INFO| Init DONE!
-2021-01-14 11:15:47.404 (   0.181s) [main thread     ]        application.hpp:28    INFO| } 0.179 s: Libs init
-2021-01-14 11:15:47.404 (   0.181s) [main thread     ]        application.hpp:51    INFO| New callback was registered
-2021-01-14 11:15:47.404 (   0.181s) [main thread     ]             shader.hpp:33    INFO| { Shader init
-2021-01-14 11:15:47.404 (   0.181s) [main thread     ]             shader.hpp:125   INFO| .   Parsing shader at: ../shaders/basic_lighting_shader.glsl
-2021-01-14 11:15:47.404 (   0.181s) [main thread     ]             shader.hpp:150   INFO| .   Shader parsed successfully
-2021-01-14 11:15:47.404 (   0.181s) [main thread     ]             shader.hpp:161   INFO| .   Trying to compile VertexShader 
-2021-01-14 11:15:47.406 (   0.183s) [main thread     ]             shader.hpp:188   INFO| .   shader compiled successfully
-2021-01-14 11:15:47.406 (   0.183s) [main thread     ]             shader.hpp:161   INFO| .   Trying to compile FragmentShader 
-2021-01-14 11:15:47.406 (   0.183s) [main thread     ]             shader.hpp:188   INFO| .   shader compiled successfully
-2021-01-14 11:15:47.407 (   0.184s) [main thread     ]             shader.hpp:37    INFO| .   Created shader with id: 1
-2021-01-14 11:15:47.407 (   0.184s) [main thread     ]             shader.hpp:92    INFO| .   Live reload enabled for Shader(0x7ffee79dfa60) ID: 1
-2021-01-14 11:15:47.407 (   0.184s) [main thread     ]             shader.hpp:33    INFO| } 0.003 s: Shader init
-2021-01-14 11:15:47.407 (   0.184s) [main thread     ]               mesh.hpp:68    INFO| { Gonna load OBJ file
-2021-01-14 11:15:47.763 (   0.540s) [main thread     ]         obj_loader.hpp:21    INFO| .   Meshes: 1
-2021-01-14 11:15:47.763 (   0.540s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(0)
-2021-01-14 11:15:47.763 (   0.540s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 108
-2021-01-14 11:15:47.763 (   0.540s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 72
-2021-01-14 11:15:47.763 (   0.540s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 108
-2021-01-14 11:15:47.763 (   0.540s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
-2021-01-14 11:15:47.763 (   0.540s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 1
-2021-01-14 11:15:47.763 (   0.540s) [main thread     ]               mesh.hpp:68    INFO| } 0.356 s: Gonna load OBJ file
-2021-01-14 11:15:47.782 (   0.559s) [main thread     ]            texture.hpp:52    INFO| Texture loaded successfully!
-2021-01-14 11:15:47.783 (   0.560s) [main thread     ]             shader.hpp:111   WARN| Uniform with name: objectColor does not exist
-2021-01-14 11:15:49.656 (   2.433s) [main thread     ]        application.hpp:118   INFO| Calling registered callback
-2021-01-14 11:15:49.658 (   2.435s) [main thread     ]             window.hpp:80    INFO| GLFW window destroyed
-2021-01-14 11:15:49.658 (   2.435s) [main thread     ]             window.hpp:81    INFO| Window(0x7fa549c0d950) destroyed
-2021-01-14 11:15:49.658 (   2.435s) [main thread     ]               main.cpp:10    INFO| Quiting...
-2021-01-14 11:15:49.662 (   2.439s) [main thread     ]             loguru.cpp:526   INFO| atexit
+2021-01-14 11:18:15.000 (   0.000s) [main thread     ]             loguru.cpp:826   INFO| Logging to 'main.log', mode: 'w', verbosity: 9
+2021-01-14 11:18:15.043 (   0.044s) [main thread     ]             window.hpp:41    INFO| GLFW init - OK
+2021-01-14 11:18:15.043 (   0.044s) [main thread     ]             window.hpp:47    INFO| System: MacOS
+2021-01-14 11:18:15.043 (   0.044s) [main thread     ]             window.hpp:88    INFO| { Getting latest OpenGL
+2021-01-14 11:18:15.086 (   0.087s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.9 - FAIL
+2021-01-14 11:18:15.094 (   0.095s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.8 - FAIL
+2021-01-14 11:18:15.100 (   0.101s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.7 - FAIL
+2021-01-14 11:18:15.109 (   0.110s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.6 - FAIL
+2021-01-14 11:18:15.115 (   0.116s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.5 - FAIL
+2021-01-14 11:18:15.123 (   0.123s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.4 - FAIL
+2021-01-14 11:18:15.131 (   0.132s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.3 - FAIL
+2021-01-14 11:18:15.141 (   0.142s) [main thread     ]             window.hpp:97    INFO| .   Trying OpenGL v4.2 - FAIL
+2021-01-14 11:18:15.166 (   0.167s) [main thread     ]             window.hpp:99    INFO| .   Trying OpenGL v4.1 - OK
+2021-01-14 11:18:15.167 (   0.167s) [main thread     ]             window.hpp:88    INFO| } 0.124 s: Getting latest OpenGL
+2021-01-14 11:18:15.167 (   0.168s) [main thread     ]             window.hpp:68    INFO| Status: Using OpenGL v4.1 ATI-4.2.13
+2021-01-14 11:18:15.167 (   0.168s) [main thread     ]             window.hpp:69    INFO| Renderer: AMD Radeon RX 5700 XT OpenGL Engine
+2021-01-14 11:18:15.167 (   0.168s) [main thread     ]             window.hpp:70    INFO| Number of textures that can be accessed by the fragment shader: 16
+2021-01-14 11:18:15.167 (   0.168s) [main thread     ]             window.hpp:71    INFO| Total number of textures that can be used 80
+2021-01-14 11:18:15.167 (   0.168s) [main thread     ]             window.hpp:72    INFO| Init DONE!
+2021-01-14 11:18:15.167 (   0.168s) [main thread     ]        application.hpp:28    INFO| } 0.168 s: Libs init
+2021-01-14 11:18:15.167 (   0.168s) [main thread     ]        application.hpp:51    INFO| New callback was registered
+2021-01-14 11:18:15.167 (   0.168s) [main thread     ]             shader.hpp:33    INFO| { Shader init
+2021-01-14 11:18:15.167 (   0.168s) [main thread     ]             shader.hpp:125   INFO| .   Parsing shader at: ../shaders/basic_lighting_shader.glsl
+2021-01-14 11:18:15.168 (   0.168s) [main thread     ]             shader.hpp:150   INFO| .   Shader parsed successfully
+2021-01-14 11:18:15.168 (   0.168s) [main thread     ]             shader.hpp:161   INFO| .   Trying to compile VertexShader 
+2021-01-14 11:18:15.171 (   0.171s) [main thread     ]             shader.hpp:188   INFO| .   shader compiled successfully
+2021-01-14 11:18:15.171 (   0.171s) [main thread     ]             shader.hpp:161   INFO| .   Trying to compile FragmentShader 
+2021-01-14 11:18:15.171 (   0.172s) [main thread     ]             shader.hpp:188   INFO| .   shader compiled successfully
+2021-01-14 11:18:15.173 (   0.173s) [main thread     ]             shader.hpp:37    INFO| .   Created shader with id: 1
+2021-01-14 11:18:15.173 (   0.174s) [main thread     ]             shader.hpp:92    INFO| .   Live reload enabled for Shader(0x7ffee14bba60) ID: 1
+2021-01-14 11:18:15.173 (   0.174s) [main thread     ]             shader.hpp:33    INFO| } 0.005 s: Shader init
+2021-01-14 11:18:15.173 (   0.174s) [main thread     ]               mesh.hpp:68    INFO| { Gonna load OBJ file
+2021-01-14 11:18:15.527 (   0.527s) [main thread     ]         obj_loader.hpp:21    INFO| .   Meshes: 1
+2021-01-14 11:18:15.527 (   0.527s) [main thread     ]         obj_loader.hpp:23    INFO| .   Mesh(0)
+2021-01-14 11:18:15.527 (   0.527s) [main thread     ]         obj_loader.hpp:54    INFO| .   vertices: 108
+2021-01-14 11:18:15.527 (   0.527s) [main thread     ]         obj_loader.hpp:55    INFO| .   texCoords: 72
+2021-01-14 11:18:15.527 (   0.527s) [main thread     ]         obj_loader.hpp:57    INFO| .   normals: 108
+2021-01-14 11:18:15.527 (   0.527s) [main thread     ]         obj_loader.hpp:58    INFO| .   ---------------
+2021-01-14 11:18:15.527 (   0.528s) [main thread     ]       vertex_array.hpp:18    INFO| .   VertexArray created rendererID: 1
+2021-01-14 11:18:15.527 (   0.528s) [main thread     ]               mesh.hpp:68    INFO| } 0.354 s: Gonna load OBJ file
+2021-01-14 11:18:15.544 (   0.545s) [main thread     ]            texture.hpp:52    INFO| Texture loaded successfully!
+2021-01-14 11:18:15.545 (   0.545s) [main thread     ]             shader.hpp:111   WARN| Uniform with name: objectColor does not exist
+2021-01-14 11:18:35.222 (  20.223s) [main thread     ]        application.hpp:118   INFO| Calling registered callback
+2021-01-14 11:18:35.224 (  20.225s) [main thread     ]             window.hpp:80    INFO| GLFW window destroyed
+2021-01-14 11:18:35.224 (  20.225s) [main thread     ]             window.hpp:81    INFO| Window(0x7fbcc0d042d0) destroyed
+2021-01-14 11:18:35.224 (  20.225s) [main thread     ]               main.cpp:10    INFO| Quiting...
+2021-01-14 11:18:35.225 (  20.226s) [main thread     ]             loguru.cpp:526   INFO| atexit
