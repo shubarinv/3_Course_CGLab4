@@ -1,6 +1,7 @@
 
 #include "application.hpp"
 #include "camera.hpp"
+#include "diffuse_light.hpp"
 #include "mesh.hpp"
 #include "renderer.hpp"
 #include "shader.hpp"
@@ -29,28 +30,35 @@ int main(int argc, char *argv[]) {
   Application app({640, 480}, argc, argv);
   Application::setOpenGLFlags();
   app.registerKeyCallback(GLFW_KEY_ESCAPE, programQuit);
-  Shader shader("../shaders/basic_lighting_shader_tex.glsl", true);
+
+  Shader shader("../shaders/basic_lightmaps_shader.glsl", true);
+  shader.bind();
+
   Mesh mesh("../resources/models/Crate1.obj");
   mesh.setTexture("../resources/crate_1.png");
-  Camera camera(app.getWindow()->getWindowSize());
 
+  Camera camera(app.getWindow()->getWindowSize());
   camera.moveTo({0, 0, 4});
   camera.lookAt({0, 0, 0.1});
-  shader.setUniform3f("lightPos", {0, 0, 4});
-  shader.setUniform3f("lightColor", {1, 1, 1});
- // shader.setUniform3f("objectColor", {0.1, 0.1, 0.1});
-  shader.bind();
+
   //shader.setUniform1i("u_Texture", 0);
   mesh.compile();
   std::vector<glm::vec3> cameraPositions = getCoordsForVertices(0, 0, 2, 100);/// координаты для точек гиперболойды
   int cameraPosition{0};
+
+  DiffuseLight light("l_1", {cameraPositions[cameraPosition], {1, 1, 1}, 1});
   while (!app.getShouldClose()) {
 	//rotating scene
 	camera.setModel(glm::rotate(camera.getModel(), 0.006f, {0, 1, 0}));
+
+	light.moveTo(cameraPositions[cameraPosition]);
+	light.setIntensity(0.1);
+
 	//updating data for shader
 	shader.reload();
 	camera.passDataToShader(&shader);
-	shader.setUniform3f("lightPos", cameraPositions[cameraPosition]);
+	light.passDataToShader(&shader);
+
 	//drawing stuff
 	Renderer::clear({0, 0, 0, 1});
 	mesh.draw(&shader);
