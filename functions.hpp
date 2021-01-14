@@ -92,7 +92,7 @@ bool glLogCall(const char *function = {}, const char *file = {}, int line = -1) 
 	return true;
   }
   while (GLenum error = glGetError()) {
-	LOG_S(ERROR) << "OpenGL error: " << glErrorToString(error) << " in file " << file << " in function " << function << " at line: " << line;
+	LOG_S(ERROR) << "OpenGL error: " << glErrorToString(error) << " in file " << file << ":"<<line<<" in " << function;
 	//throw std::runtime_error("OpenGL error: " + glErrorToString(error));
   }
   return true;
