@@ -177,8 +177,9 @@ class Shader {
 	  char buf[length];
 	  error = "Application::CompileShader() failed to compile ";
 	  error += (type == GL_VERTEX_SHADER ? "VertexShader " : "FragmentShader ");
-	  error += buf;
 	  glGetShaderInfoLog(id, length, &length, buf);
+	  error += buf;
+
 
 	  if (!isReload) {
 		LOG_S(FATAL) << error;
