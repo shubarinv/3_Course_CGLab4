@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
   camera.moveTo({0, 0, 4});
   camera.lookAt({0, 0, 0.1});
 
-  shader.setUniform1i("u_Texture", 0);
+ 
   mesh.compile();
   std::vector<glm::vec3> cameraPositions = getCoordsForVertices(0, 0, 2, 500);/// координаты для точек гиперболойды
   int cameraPosition{0};
@@ -52,6 +52,7 @@ int main(int argc, char *argv[]) {
   shader.setUniform3f("light.specular", {1.0f, 1.0f, 1.0f});
 
   shader.setUniform1f("material.shininess", 64.0f);
+  shader.setUniform1i("material.specular", 1);
   while (!app.getShouldClose()) {
 	//rotating scene
 	//camera.setModel(glm::rotate(camera.getModel(), 0.001f, {0, 1, 0}));
