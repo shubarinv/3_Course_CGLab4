@@ -31,43 +31,30 @@ int main(int argc, char *argv[]) {
   Application::setOpenGLFlags();
   app.registerKeyCallback(GLFW_KEY_ESCAPE, programQuit);
 
-  Shader shader("../shaders/spotlight_shader.glsl", true);
+  Shader shader("../shaders/multiple_diffuse_shader.glsl", true);
   shader.bind();
+  shader.setUniform1i("u_Texture", 0);
+  shader.setUniform1i("numDiffLights", 1);
 
   Mesh mesh("../resources/models/Crate1.obj");
   mesh.addTexture("../textures/crate.png");
-  mesh.addTexture("../textures/crate_specular.png");
+  mesh.compile();
 
   Camera camera(app.getWindow()->getWindowSize());
   camera.moveTo({0, 0, 4});
   camera.lookAt({0, 0, 0.1});
 
-  mesh.compile();
   std::vector<glm::vec3> cameraPositions = getCoordsForVertices(0, 0, 2, 500);/// координаты для точек гиперболойды
   int cameraPosition{0};
 
   DiffuseLight light("l_1", {cameraPositions[cameraPosition], {1, 1, 1}, 1});
-  shader.setUniform3f("light.ambient", {0.2f, 0.2f, 0.2f});
-  shader.setUniform3f("light.specular", {1.0f, 1.0f, 1.0f});
-  //point light
-  shader.setUniform1f("light.constant", 1.0f);
-  shader.setUniform1f("light.linear", 0.09f);
-  shader.setUniform1f("light.quadratic", 0.032f);
-  //spotlight
 
-  shader.setUniform3f("light.direction", {0,0,-1});
-  shader.setUniform1f("light.cutOff", glm::cos(glm::radians(12.5f)));
-  shader.setUniform1f("light.outerCutOff", glm::cos(glm::radians(17.5f)));
-
-  shader.setUniform1f("material.shininess", 64.0f);
-  shader.setUniform1i("material.specular", 1);
   while (!app.getShouldClose()) {
 	//rotating scene
-	camera.setModel(glm::rotate(camera.getModel(), 0.004f, {0, 1, 0}));
+	//camera.setModel(glm::rotate(camera.getModel(), 0.004f, {0, 1, 0}));
 
 	light.moveTo(cameraPositions[cameraPosition]);
-	light.setIntensity(1);
-	shader.setUniform3f("viewPos", camera.getPosition());
+
 	//updating data for shader
 	shader.reload();
 	camera.passDataToShader(&shader);

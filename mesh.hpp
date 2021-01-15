@@ -6,16 +6,16 @@
 #define CGLABS__MESH_HPP_
 #include <utility>
 
+#include "Buffers/index_buffer.hpp"
+#include "Buffers/normals_buffer.hpp"
+#include "Buffers/texture_buffer.hpp"
+#include "Buffers/vertex_array.hpp"
+#include "Buffers/vertex_buffer.hpp"
 #include "color_buffer.hpp"
 #include "functions.hpp"
-#include "index_buffer.hpp"
-#include "normals_buffer.hpp"
 #include "obj_loader.hpp"
 #include "renderer.hpp"
 #include "texture.hpp"
-#include "texture_buffer.hpp"
-#include "vertex_array.hpp"
-#include "vertex_buffer.hpp"
 class Mesh {
   std::vector<float> coordinates;
   std::vector<Buffer> buffers;

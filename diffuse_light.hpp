@@ -12,7 +12,7 @@ class DiffuseLight : public LightSource {
   struct Data {
 	glm::vec3 position{};
 	glm::vec3 color{};
-	float intensity{};
+	float intensity{1};
   };
   Data data;
 
@@ -21,8 +21,8 @@ class DiffuseLight : public LightSource {
 	data = _data;
   }
   void passDataToShader(Shader* shader) override  {
-	shader->setUniform3f("light.position", data.position);
-	shader->setUniform3f("light.diffuse", data.color*(bEnabled ? data.intensity : 0));
+	shader->setUniform3f("lights[0].position", data.position);
+	shader->setUniform3f("lights[0].color", data.color*(bEnabled ? data.intensity : 0));
   }
   void moveTo(glm::vec3 newCoords) override {
 	data.position = newCoords;

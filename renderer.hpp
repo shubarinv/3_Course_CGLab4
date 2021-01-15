@@ -7,8 +7,8 @@
 
 #include <string>
 
+#include "Buffers/vertex_array.hpp"
 #include "shader.hpp"
-#include "vertex_array.hpp"
 
 class Renderer {
  public:
