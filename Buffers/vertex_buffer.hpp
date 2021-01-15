@@ -7,8 +7,8 @@
 #include <utility>
 #include <vector>
 
-#include "buffer.hpp"
-#include "functions.hpp"
+#include "../buffer.hpp"
+#include "../functions.hpp"
 class VertexBuffer : public Buffer {
  public:
   /**

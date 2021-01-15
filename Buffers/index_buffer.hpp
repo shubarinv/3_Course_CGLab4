@@ -5,8 +5,8 @@
 #ifndef CGLABS__INDEX_BUFFER_HPP_
 #define CGLABS__INDEX_BUFFER_HPP_
 
-#include "buffer.hpp"
-#include "functions.hpp"
+#include "../buffer.hpp"
+#include "../functions.hpp"
 class IndexBuffer {
 
  public:

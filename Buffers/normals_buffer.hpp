@@ -4,8 +4,8 @@
 
 #ifndef CGLABS__NORMALS_BUFFER_HPP_
 #define CGLABS__NORMALS_BUFFER_HPP_
-#include "buffer.hpp"
-#include "functions.hpp"
+#include "../buffer.hpp"
+#include "../functions.hpp"
 class NormalsBuffer : public Buffer {
 
  public:

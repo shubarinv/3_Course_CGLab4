@@ -4,8 +4,8 @@
 
 #ifndef CGLABS__TEXTURE_BUFFER_HPP_
 #define CGLABS__TEXTURE_BUFFER_HPP_
-#include "buffer.hpp"
-#include "functions.hpp"
+#include "../buffer.hpp"
+#include "../functions.hpp"
 class TextureBuffer : public Buffer {
 
  public:
