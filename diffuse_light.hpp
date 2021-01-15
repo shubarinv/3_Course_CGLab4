@@ -15,9 +15,6 @@ class DiffuseLight : public LightSource {
 	float intensity{};
   };
   Data data;
-  void setColor(glm::vec3 _color) override {
-	data.color = _color;
-  }
 
  public:
   explicit DiffuseLight(std::string _name, Data _data) : LightSource(lightType::DIFFUSE, std::move(_name)) {
@@ -32,6 +29,9 @@ class DiffuseLight : public LightSource {
   }
   void setIntensity(float _intensity) override {
 	data.intensity = _intensity;
+  }
+  void setColor(glm::vec3 _color) override {
+	data.color = _color;
   }
 };
 
