@@ -54,11 +54,11 @@ int main(int argc, char *argv[]) {
   shader.setUniform1f("light.linear", 0.09f);
   shader.setUniform1f("light.quadratic", 0.032f);
   //spotlight
-  /* doesn't work'
-  shader.setUniform3f("light.direction", {0,0,.1});
+
+  shader.setUniform3f("light.direction", {0,0,-1});
   shader.setUniform1f("light.cutOff", glm::cos(glm::radians(12.5f)));
   shader.setUniform1f("light.outerCutOff", glm::cos(glm::radians(17.5f)));
-*/
+
   shader.setUniform1f("material.shininess", 64.0f);
   shader.setUniform1i("material.specular", 1);
   while (!app.getShouldClose()) {
