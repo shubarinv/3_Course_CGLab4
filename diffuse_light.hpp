@@ -43,6 +43,16 @@ class DiffuseLight : public LightSource {
   void setColor(glm::vec3 _color) override {
 	data.color = _color;
   }
+  [[nodiscard]] glm::vec3 getColor() const{
+	return data.color;
+  }
+
+  [[nodiscard]] glm::vec3 getPosition() const{
+	return data.position;
+  }
+  [[nodiscard]] float getIntensity() const{
+	return data.intensity;
+  }
 };
 
 #endif//CGLABS__DIFFUSE_LIGHT_HPP_

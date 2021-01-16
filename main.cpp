@@ -7,8 +7,11 @@
 #include "renderer.hpp"
 #include "shader.hpp"
 
-int selectedOptionX{0};
-int selectedOptionY{0};
+LightsManager *lightsManager;
+int selectedTask{0};
+int useTextures{0};
+int currentLightPosition{0};
+int lightMovementSpeed{1};
 float lastX = 0;
 float lastY = 0;
 bool firstMouse = true;
@@ -42,36 +45,119 @@ void programQuit([[maybe_unused]] int key, [[maybe_unused]] int action, Applicat
 void changeTask([[maybe_unused]] int key, [[maybe_unused]] int action, [[maybe_unused]] Application *app) {
   if (action == GLFW_RELEASE) {
 	if (key == GLFW_KEY_KP_1) {
-	  selectedOptionX--;
+	  selectedTask--;
 	}
 	if (key == GLFW_KEY_KP_3) {
-	  selectedOptionX++;
+	  selectedTask++;
 	}
-	LOG_S(INFO) << "SelectedTask: " << selectedOptionX;
+	LOG_S(INFO) << "SelectedTask: " << selectedTask;
+	switch (selectedTask) {
+	  case 0:
+		lightsManager->getLightByNameDir("1_1")->setColor({0.8, 0, 0.8});
+		lightsManager->getLightByNameDir("1_1")->moveTo({0, 0, 10});
+		break;
+
+	  case 1:
+		lightsManager->getLightByNameDir("1_1")->setColor({0.8, 0.8, 0.8});
+		lightsManager->getLightByNameDir("1_1")->moveTo({0, 0, 10});
+		break;
+	  default:
+		break;
+	}
   }
 }
 void drawWithTextures([[maybe_unused]] int key, [[maybe_unused]] int action, [[maybe_unused]] Application *app) {
   if (action == GLFW_RELEASE) {
 	if (key == GLFW_KEY_KP_0) {
-	  selectedOptionY = 0;
+	  useTextures = 0;
 	}
 	if (key == GLFW_KEY_KP_2) {
-	  selectedOptionY = 1;
+	  useTextures = 1;
 	}
-	LOG_S(INFO) << "Drawing with Textures: " << selectedOptionY;
+	LOG_S(INFO) << "Drawing with Textures: " << useTextures;
   }
 }
-void wasdKeyPress([[maybe_unused]] int key, [[maybe_unused]] int action, [[maybe_unused]] Application *app){
-  if ((key == GLFW_KEY_W) &&(action== GLFW_PRESS||action==GLFW_REPEAT))
+void wasdKeyPress([[maybe_unused]] int key, [[maybe_unused]] int action, [[maybe_unused]] Application *app) {
+  if ((key == GLFW_KEY_W) && (action == GLFW_PRESS || action == GLFW_REPEAT))
 	camera->ProcessKeyboard(FORWARD, deltaTime);
-  if ((key == GLFW_KEY_S) &&(action== GLFW_PRESS||action==GLFW_REPEAT))
+  if ((key == GLFW_KEY_S) && (action == GLFW_PRESS || action == GLFW_REPEAT))
 	camera->ProcessKeyboard(BACKWARD, deltaTime);
-  if ((key == GLFW_KEY_A) &&(action== GLFW_PRESS||action==GLFW_REPEAT))
+  if ((key == GLFW_KEY_A) && (action == GLFW_PRESS || action == GLFW_REPEAT))
 	camera->ProcessKeyboard(LEFT, deltaTime);
-  if ((key == GLFW_KEY_D) &&(action== GLFW_PRESS||action==GLFW_REPEAT))
+  if ((key == GLFW_KEY_D) && (action == GLFW_PRESS || action == GLFW_REPEAT))
 	camera->ProcessKeyboard(RIGHT, deltaTime);
 }
+void adjustLightMovementSpeed([[maybe_unused]] int key, [[maybe_unused]] int action, [[maybe_unused]] Application *app) {
+  if (action == GLFW_RELEASE) {
+	if (selectedTask == 3) {
+	  if (key == GLFW_KEY_KP_ADD) {
+		lightMovementSpeed++;
+	  }
+	  if (key == GLFW_KEY_KP_SUBTRACT) {
+		lightMovementSpeed--;
+	  }
+	}
+  }
+}
 
+void arrowKeyPress([[maybe_unused]] int key, [[maybe_unused]] int action, [[maybe_unused]] Application *app) {
+  if ((key == GLFW_KEY_UP) && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
+	if (selectedTask == 1) {
+	  auto currLightPos = lightsManager->getLightByNameDir("1_1")->getPosition();
+	  lightsManager->getLightByNameDir("1_1")->moveTo({currLightPos.x, currLightPos.y, currLightPos.z - 0.5f});
+	}
+  }
+  if ((key == GLFW_KEY_DOWN) && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
+	if (selectedTask == 1) {
+	  auto currLightPos = lightsManager->getLightByNameDir("1_1")->getPosition();
+	  lightsManager->getLightByNameDir("1_1")->moveTo({currLightPos.x, currLightPos.y, currLightPos.z + 0.5f});
+	}
+  }
+  if ((key == GLFW_KEY_LEFT) && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
+	if (selectedTask == 0) {
+	  auto currColor = lightsManager->getLightByNameDir("1_1")->getColor();
+	  if (currColor.b - 0.05 <= 0) {
+		lightsManager->getLightByNameDir("1_1")->setColor({currColor.r, currColor.g, 0});
+	  } else {
+		lightsManager->getLightByNameDir("1_1")->setColor({currColor.r, currColor.g, currColor.b - 0.05f});
+	  }
+	}
+	if (selectedTask == 1) {
+	  auto currLightPos = lightsManager->getLightByNameDir("1_1")->getPosition();
+	  lightsManager->getLightByNameDir("1_1")->moveTo({currLightPos.x - 0.5, currLightPos.y, currLightPos.z});
+	}
+  }
+  if ((key == GLFW_KEY_RIGHT) && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
+	if (selectedTask == 0) {
+	  auto currColor = lightsManager->getLightByNameDir("1_1")->getColor();
+	  if (currColor.b + 0.05 >= 1) {
+		lightsManager->getLightByNameDir("1_1")->setColor({currColor.r, currColor.g, 1});
+	  } else {
+		lightsManager->getLightByNameDir("1_1")->setColor({currColor.r, currColor.g, currColor.b + 0.05f});
+	  }
+	}
+	if (selectedTask == 1) {
+	  auto currLightPos = lightsManager->getLightByNameDir("1_1")->getPosition();
+	  lightsManager->getLightByNameDir("1_1")->moveTo({currLightPos.x + 0.5, currLightPos.y, currLightPos.z});
+	}
+  }
+}
+void changeIntensity([[maybe_unused]] int key, [[maybe_unused]] int action, [[maybe_unused]] Application *app) {
+  if (selectedTask == 2) {
+	if ((key == GLFW_KEY_P) && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
+	  lightsManager->getLightByNameDir("3_1")->setIntensity(lightsManager->getLightByNameDir("3_1")->getIntensity() + 0.05f);
+	}
+	if ((key == GLFW_KEY_Y) && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
+	  lightsManager->getLightByNameDir("3_1")->setIntensity(lightsManager->getLightByNameDir("3_1")->getIntensity() - 0.05f);
+	}
+	if(lightsManager->getLightByNameDir("3_1")->getIntensity()>1){
+	  lightsManager->getLightByNameDir("3_1")->setIntensity(0.1);
+	}
+	if(lightsManager->getLightByNameDir("3_1")->getIntensity()<0){
+	  lightsManager->getLightByNameDir("3_1")->setIntensity(0);
+	}
+  }
+}
 // glfw: whenever the mouse moves, this callback is called
 // -------------------------------------------------------
 void mouse_callback(GLFWwindow *window, double xpos, double ypos) {
@@ -97,17 +183,31 @@ void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) {
 }
 
 int main(int argc, char *argv[]) {
-  Application app({640, 480}, argc, argv);
+  Application app({1280, 720}, argc, argv);
   Application::setOpenGLFlags();
   app.registerKeyCallback(GLFW_KEY_ESCAPE, programQuit);
   app.registerKeyCallback(GLFW_KEY_KP_1, changeTask);
   app.registerKeyCallback(GLFW_KEY_KP_3, changeTask);
+
   app.registerKeyCallback(GLFW_KEY_KP_2, drawWithTextures);
   app.registerKeyCallback(GLFW_KEY_KP_0, drawWithTextures);
+
+  app.registerKeyCallback(GLFW_KEY_KP_ADD, adjustLightMovementSpeed);
+  app.registerKeyCallback(GLFW_KEY_KP_SUBTRACT, adjustLightMovementSpeed);
+
+  app.registerKeyCallback(GLFW_KEY_P, changeIntensity);
+  app.registerKeyCallback(GLFW_KEY_Y, changeIntensity);
+
   app.registerKeyCallback(GLFW_KEY_W, wasdKeyPress);
   app.registerKeyCallback(GLFW_KEY_A, wasdKeyPress);
   app.registerKeyCallback(GLFW_KEY_S, wasdKeyPress);
   app.registerKeyCallback(GLFW_KEY_D, wasdKeyPress);
+
+  app.registerKeyCallback(GLFW_KEY_UP, arrowKeyPress);
+  app.registerKeyCallback(GLFW_KEY_DOWN, arrowKeyPress);
+  app.registerKeyCallback(GLFW_KEY_LEFT, arrowKeyPress);
+  app.registerKeyCallback(GLFW_KEY_RIGHT, arrowKeyPress);
+
   lastX = app.getWindow()->getWindowSize().x / 2.0f;
   lastY = app.getWindow()->getWindowSize().y / 2.0f;
 
@@ -136,19 +236,16 @@ int main(int argc, char *argv[]) {
   Pyramid.compile();
 
   std::vector<glm::vec3> lightsPositions = getCoordsForVertices(0, 0, 2, 500);/// координаты для точек гиперболойды
-  int lightPosition1{0};
-  int lightPosition2 = lightsPositions.size() / 2;
 
-  LightsManager lightsManager;
-  lightsManager.addLight(DiffuseLight("1_1", {{0, 0, 10}, {0.8, 0.8, 0.8}, 1}));
-  lightsManager.addLight(DiffuseLight("3_1", {{10, 0, 0}, {0.8, 0, 0.8}, 1}));
-  lightsManager.addLight(DiffuseLight("3_2", {{-10, 0, 10}, {0.8, 0.8, 0}, 1}));
-  lightsManager.addLight(DiffuseLight("4_1", {{-10, 0, 10}, {0.8, 0.8, 0}, 1}));
+  lightsManager = new LightsManager;
+  lightsManager->addLight(DiffuseLight("1_1", {{0, 0, 10}, {0.8, 0, 0.8}, 0.8}));
+  lightsManager->addLight(DiffuseLight("3_1", {{10, 0, 10}, {0.8, 0, 0.8}, 0.8}));
+  lightsManager->addLight(DiffuseLight("3_2", {{-10, 0, 10}, {0.8, 0.8, 0}, 0.8}));
+  lightsManager->addLight(DiffuseLight("4_1", {{-10, 0, 10}, {0.8, 0.8, 0}, 1}));
 
   // camera
   camera = new Camera(glm::vec3(0.0f, 0.0f, 6.0f));
   camera->setWindowSize(app.getWindow()->getWindowSize());
-
 
   glfwSetCursorPosCallback(app.getWindow()->getGLFWWindow(), mouse_callback);
   glfwSetScrollCallback(app.getWindow()->getGLFWWindow(), scroll_callback);
@@ -161,57 +258,57 @@ int main(int argc, char *argv[]) {
 	shader_tex.reload();
 	shader_color.reload();
 	Renderer::clear({0, 0, 0, 1});
-	switch (selectedOptionY) {
+	switch (useTextures) {
 	  case 0:
 		camera->passDataToShader(&shader_color);
-		lightsManager.passDataToShader(&shader_color);
+		lightsManager->passDataToShader(&shader_color);
 		break;
 	  case 1:
 		camera->passDataToShader(&shader_tex);
-		lightsManager.passDataToShader(&shader_tex);
+		lightsManager->passDataToShader(&shader_tex);
 	  default:
 		break;
 	}
 	//drawing stuff
 
-	switch (selectedOptionX) {
+	switch (selectedTask) {
 	  case 0:
-		lightsManager.getLightByNameDir("1_1")->enable();
-		lightsManager.getLightByNameDir("3_1")->disable();
-		lightsManager.getLightByNameDir("3_2")->disable();
-		lightsManager.getLightByNameDir("4_1")->disable();
-		if (selectedOptionY == 0) Sphere.draw(&shader_color);
-		if (selectedOptionY == 1) Sphere.draw(&shader_tex);
+		lightsManager->getLightByNameDir("1_1")->enable();
+		lightsManager->getLightByNameDir("3_1")->disable();
+		lightsManager->getLightByNameDir("3_2")->disable();
+		lightsManager->getLightByNameDir("4_1")->disable();
+		if (useTextures == 0) Sphere.draw(&shader_color);
+		if (useTextures == 1) Sphere.draw(&shader_tex);
 		//lightsManager.getLightByNameDir("1_1")->moveTo(cameraPositions[cameraPosition1]);
 		break;
 	  case 1:
-		lightsManager.getLightByNameDir("1_1")->enable();
-		lightsManager.getLightByNameDir("1_1")->setColor({0.8f, 0.8f, 0.8f});
-		lightsManager.getLightByNameDir("3_1")->disable();
-		lightsManager.getLightByNameDir("3_2")->disable();
-		lightsManager.getLightByNameDir("4_1")->disable();
+		lightsManager->getLightByNameDir("1_1")->enable();
+		lightsManager->getLightByNameDir("1_1")->setColor({0.8f, 0.8f, 0.8f});
+		lightsManager->getLightByNameDir("3_1")->disable();
+		lightsManager->getLightByNameDir("3_2")->disable();
+		lightsManager->getLightByNameDir("4_1")->disable();
 
-		if (selectedOptionY == 0) Sphere.draw(&shader_color);
-		if (selectedOptionY == 1) Sphere.draw(&shader_tex);
+		if (useTextures == 0) Sphere.draw(&shader_color);
+		if (useTextures == 1) Sphere.draw(&shader_tex);
 		//lightsManager.getLightByNameDir("1_1")->moveTo(cameraPositions[cameraPosition1]);
 		break;
 	  case 2:
-		lightsManager.getLightByNameDir("1_1")->disable();
-		lightsManager.getLightByNameDir("3_1")->enable();
-		lightsManager.getLightByNameDir("3_2")->enable();
-		lightsManager.getLightByNameDir("4_1")->disable();
+		lightsManager->getLightByNameDir("1_1")->disable();
+		lightsManager->getLightByNameDir("3_1")->enable();
+		lightsManager->getLightByNameDir("3_2")->enable();
+		lightsManager->getLightByNameDir("4_1")->disable();
 		//Pyramid
-		if (selectedOptionY == 0) Pyramid.draw(&shader_color);
-		if (selectedOptionY == 1) Pyramid.draw(&shader_tex);
+		if (useTextures == 0) Pyramid.draw(&shader_color);
+		if (useTextures == 1) Pyramid.draw(&shader_tex);
 		break;
 	  case 3:
-		lightsManager.getLightByNameDir("1_1")->disable();
-		lightsManager.getLightByNameDir("3_1")->disable();
-		lightsManager.getLightByNameDir("3_2")->disable();
-		lightsManager.getLightByNameDir("4_1")->enable();
-		lightsManager.getLightByNameDir("4_1")->moveTo(lightsPositions[lightPosition1]);
-		if (selectedOptionY == 0) Cube.draw(&shader_color);
-		if (selectedOptionY == 1) Cube.draw(&shader_tex);
+		lightsManager->getLightByNameDir("1_1")->disable();
+		lightsManager->getLightByNameDir("3_1")->disable();
+		lightsManager->getLightByNameDir("3_2")->disable();
+		lightsManager->getLightByNameDir("4_1")->enable();
+		lightsManager->getLightByNameDir("4_1")->moveTo(lightsPositions[currentLightPosition]);
+		if (useTextures == 0) Cube.draw(&shader_color);
+		if (useTextures == 1) Cube.draw(&shader_tex);
 
 		//cube
 		break;
@@ -219,14 +316,13 @@ int main(int argc, char *argv[]) {
 		break;
 	}
 
-	lightPosition1++;
-	if (lightPosition1 >= lightsPositions.size()) {
-	  lightPosition1 = 0;
+	if (currentLightPosition >= (int)lightsPositions.size()) {
+	  currentLightPosition = 0;
 	}
-	lightPosition2++;
-	if (lightPosition2 >= lightsPositions.size()) {
-	  lightPosition2 = 0;
+	if (currentLightPosition < 0) {
+	  currentLightPosition = (int)lightsPositions.size() - currentLightPosition - abs(lightMovementSpeed);
 	}
+	currentLightPosition += lightMovementSpeed;
 	glCall(glfwSwapBuffers(app.getWindow()->getGLFWWindow()));
 	glfwPollEvents();
   }
