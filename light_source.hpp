@@ -32,7 +32,7 @@ class LightSource {
   virtual void setColor(glm::vec3 color) {}
   virtual void moveTo(glm::vec3 newCoords) {}
   std::string name;
-  virtual void passDataToShader(Shader* shader) {}
+  virtual void passDataToShader(Shader* shader,int id) {}
 };
 
 #endif//CGLABS__LIGHT_SOURCE_HPP_

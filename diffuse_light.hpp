@@ -17,13 +17,23 @@ class DiffuseLight : public LightSource {
   Data data;
 
  public:
+  [[nodiscard]] const Data& getData() const {
+	return data;
+  }
+
+ public:
   explicit DiffuseLight(std::string _name, Data _data) : LightSource(lightType::DIFFUSE, std::move(_name)) {
 	data = _data;
   }
-  void passDataToShader(Shader* shader) override  {
-	shader->setUniform3f("lights[0].position", data.position);
-	shader->setUniform3f("lights[0].color", data.color*(bEnabled ? data.intensity : 0));
+  void passDataToShader(Shader* shader, int id) override {
+	  shader->setUniform3f("lights[" + std::to_string(id) + "].position", data.position);
+	  shader->setUniform3f("lights[" + std::to_string(id) + "].color", data.color * (bEnabled ? data.intensity : 0));
   }
+  void passDataToShader(Shader* shader){
+	shader->setUniform3f("light.position", data.position);
+	shader->setUniform3f("light.color", data.color * (bEnabled ? data.intensity : 0));
+  }
+
   void moveTo(glm::vec3 newCoords) override {
 	data.position = newCoords;
   }
