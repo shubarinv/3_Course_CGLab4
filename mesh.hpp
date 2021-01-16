@@ -46,10 +46,11 @@ class Mesh {
 
  public:
   Mesh* draw(Shader* shader) {
-	if (!textures.empty())
+	if (!textures.empty() && shader->doesUniformExist("u_Texture")) {
 	  for (int i = 0; i < textures.size(); ++i) {
 		textures[i]->bind(i);
 	  }
+	}
 	if (indexBuffer != nullptr) {
 	  Renderer::draw(indexBuffer, vao, shader, indexBufferSize, GL_TRIANGLES);
 	} else {

@@ -4,8 +4,8 @@
 
 #ifndef CGLABS__LIGHTS_MANAGER_HPP_
 #define CGLABS__LIGHTS_MANAGER_HPP_
-#include <vector>
 #include <variant>
+#include <vector>
 class LightsManager {
   int numDirLights{0};
   int numPointLights{0};
@@ -14,23 +14,20 @@ class LightsManager {
 
   std::vector<LightSource> lights{};
   std::vector<DiffuseLight> diffLights{};
+
  public:
   void passDataToShader(Shader* shader) {
-	/*
-	  for (int i = 0; i < lights.size(); ++i) {
-	  shader->setUniform3f("light[i].position", lights[i]->getData().position);
-	  shader->setUniform3f("light[i].color", data.color*(bEnabled ? data.intensity : 0));
-	}
-	*/
+	shader->bind();
+	int enabledLights{0};
 	for (int i = 0; i < diffLights.size(); ++i) {
-	  diffLights[i].passDataToShader(shader,i);
+	  diffLights[i].passDataToShader(shader, i);
 	}
-	shader->setUniform1i("numDiffLights",diffLights.size());
+	shader->setUniform1i("numDiffLights", diffLights.size());
   }
 
-  DiffuseLight* getLightByNameDir(const std::string& name){
-	for(auto &light:diffLights){
-	  if(light.name==name){
+  DiffuseLight* getLightByNameDir(const std::string& name) {
+	for (auto& light : diffLights) {
+	  if (light.name == name) {
 		return &light;
 	  }
 	}
@@ -44,7 +41,6 @@ class LightsManager {
   void addLight(const LightSource& light) {
 	lights.push_back(light);
   }
-
 };
 
 #endif//CGLABS__LIGHTS_MANAGER_HPP_

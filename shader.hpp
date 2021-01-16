@@ -97,6 +97,14 @@ class Shader {
 	bLiveReload = true;
   }
 
+  bool doesUniformExist(const std::string &name){
+	if(getUniformLocation(name,true)==-1){
+	  return false;
+	}
+	else{
+	  return true;
+	}
+  }
  private:
   ShaderProgramSource source;
   std::unordered_map<std::string, int> uniformLocationCache;///< cache of uniforms locations
@@ -106,13 +114,13 @@ class Shader {
    * @param name name of uniform
    * @returns location of uniform if successful else -1
    */
-  [[nodiscard]] GLint getUniformLocation(const std::string &name) {
+  [[nodiscard]] GLint getUniformLocation(const std::string &name,bool allowedToFail=false) {
 	if (uniformLocationCache.find(name) != uniformLocationCache.end()) {
 	  return uniformLocationCache[name];
 	}
 	glCall(int location = glGetUniformLocation(rendererID, name.c_str()));
 	if (location == -1) {
-	  LOG_S(WARNING) << "Uniform with name: " << name << " does not exist";
+	  if(!allowedToFail)LOG_S(WARNING) << "Uniform with name: " << name << " does not exist";
 	}
 
 	uniformLocationCache[name] = location;
