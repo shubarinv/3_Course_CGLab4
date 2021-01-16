@@ -51,6 +51,8 @@ class Window {
 	// GLFW Window creation
 	bruteforceGLVersion();
 	glfwMakeContextCurrent(window);
+	// tell GLFW to capture our mouse
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	if (window == nullptr) {
 	  LOG_S(FATAL) << "GLFW was unable to create window";
 	  glfwTerminate();
