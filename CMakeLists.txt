@@ -4,6 +4,11 @@ if (WIN32)
     set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 endif ()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+if (WIN32)
+    include_directories(libs/glfw/include)
+endif ()
+
 include_directories(libs/glfw/include)
 set(glm_DIR libs/glm/cmake/glm) # if necessary
 include_directories(libs/glad/include)
