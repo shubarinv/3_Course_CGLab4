@@ -8,7 +8,7 @@
 class ObjLoader {
  public:
   struct loadedOBJ {
-	std::vector<u_int> indices;
+	std::vector<uint> indices;
 	std::vector<float> vertices;
 	std::vector<float> texCoords;
 	std::vector<float> normals;
@@ -22,9 +22,9 @@ class ObjLoader {
 	for (int i = 0; i < scene->mNumMeshes; ++i) {
 	  LOG_S(INFO) << "Mesh(" << i << ")";
 	  auto mesh = scene->mMeshes[i];
-	  u_int num_faces = mesh->mNumFaces;
+	  uint num_faces = mesh->mNumFaces;
 
-	  std::vector<u_int> indices;
+	  std::vector<uint> indices;
 	  std::vector<float> vertices;
 	  std::vector<float> texCoords;
 	  std::vector<float> normals;
