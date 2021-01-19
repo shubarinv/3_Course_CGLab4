@@ -5,26 +5,25 @@ if (WIN32)
 endif ()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-if (WIN32)
-    include_directories(libs/glfw/include)
-endif ()
-
 include_directories(libs/glfw/include)
-set(glm_DIR libs/glm/cmake/glm) # if necessary
 include_directories(libs/glad/include)
 include_directories(libs/assimp/include)
-add_subdirectory(libs/assimp)
 find_package(OpenGL REQUIRED)
 if (WIN32)
     find_package(glm REQUIRED)
-    find_package(GLFW3 3.3 REQUIRED)
-endif ()
-if (APPLE)
-    find_package(GLM REQUIRED)
+    find_package(assimp REQUIRED)
+    find_package(glog REQUIRED)
     find_package(GLFW3 REQUIRED)
 endif ()
+if (APPLE)
+    add_subdirectory(libs/assimp)
+    find_package(GLM REQUIRED)
+    find_package(glog REQUIRED)
+    find_package(GLFW3 REQUIRED)
 
-include_directories(${OPENGL_INCLUDE_DIRS} ${GLFW_INCLUDE_DIRS} ${GLM_INCLUDE_DIRS})
+endif ()
+
+include_directories(${OPENGL_INCLUDE_DIRS} ${GLFW_INCLUDE_DIRS} ${GLM_INCLUDE_DIRS} ${GLOG_INCLUDE_DIRS})
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -32,8 +31,8 @@ add_executable(cgLabs libs/glad/src/glad.c main.cpp application.hpp  window.hpp 
 
 
 if (WIN32)
-    target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw3 ${GLFW_LIBRARIES} ${GLM_LIBRARIES} assimp)
+    target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw3 ${GLFW_LIBRARIES} ${GLM_LIBRARIES} assimp glog::glog)
 endif ()
 if (APPLE)
-    target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw ${GLFW3_LIBRARIES} ${GLM_LIBRARIES} assimp)
+    target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw ${GLFW3_LIBRARIES} ${GLM_LIBRARIES} assimp glog::glog)
 endif ()
