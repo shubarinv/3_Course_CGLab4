@@ -39,7 +39,7 @@ std::vector<glm::vec3> getCoordsForVertices(double xc, double yc, double size, i
 
 void programQuit([[maybe_unused]] int key, [[maybe_unused]] int action, Application *app) {
   app->close();
-  LOG_S(INFO) << "Quiting...";
+  std::cout << "Quiting...";
 }
 
 void changeTask([[maybe_unused]] int key, [[maybe_unused]] int action, [[maybe_unused]] Application *app) {
@@ -50,7 +50,7 @@ void changeTask([[maybe_unused]] int key, [[maybe_unused]] int action, [[maybe_u
 	if (key == GLFW_KEY_KP_3) {
 	  selectedTask++;
 	}
-	LOG_S(INFO) << "SelectedTask: " << selectedTask;
+	std::cout << "SelectedTask: " << selectedTask;
 	switch (selectedTask) {
 	  case 0:
 		lightsManager->getLightByNameDir("1_1")->setColor({0.8, 0, 0.8});
@@ -74,7 +74,7 @@ void drawWithTextures([[maybe_unused]] int key, [[maybe_unused]] int action, [[m
 	if (key == GLFW_KEY_KP_2) {
 	  useTextures = 1;
 	}
-	LOG_S(INFO) << "Drawing with Textures: " << useTextures;
+	std::cout << "Drawing with Textures: " << useTextures;
   }
 }
 void wasdKeyPress([[maybe_unused]] int key, [[maybe_unused]] int action, [[maybe_unused]] Application *app) {
@@ -211,27 +211,27 @@ int main(int argc, char *argv[]) {
   lastX = app.getWindow()->getWindowSize().x / 2.0f;
   lastY = app.getWindow()->getWindowSize().y / 2.0f;
 
-  Shader shader_tex("../shaders/multiple_diffuse_shader_tex.glsl", false);
+  Shader shader_tex("shaders/multiple_diffuse_shader_tex.glsl");
   shader_tex.bind();
   shader_tex.setUniform1i("u_Texture", 0);
   shader_tex.setUniform1i("numDiffLights", 1);
 
-  Shader shader_color("../shaders/multiple_diffuse_shader_color.glsl", false);
+  Shader shader_color("shaders/multiple_diffuse_shader_color.glsl");
   shader_color.bind();
   shader_color.setUniform1i("numDiffLights", 1);
 
-  Mesh Cube("../resources/models/Crate1.obj");
-  Cube.addTexture("../textures/crate.png");
+  Mesh Cube("resources/models/Crate1.obj");
+  Cube.addTexture("textures/crate.png");
   Cube.setColor(glm::vec3{1, 1, 1});
   Cube.compile();
 
-  Mesh Sphere("../resources/models/sphere.obj");
-  Sphere.addTexture("../textures/crate.png");
+  Mesh Sphere("resources/models/sphere.obj");
+  Sphere.addTexture("textures/crate.png");
   Sphere.setColor(glm::vec3{1, 1, 1});
   Sphere.compile();
 
-  Mesh Pyramid("../resources/models/Pyramid.obj");
-  Pyramid.addTexture("../textures/crate.png");
+  Mesh Pyramid("resources/models/Pyramid.obj");
+  Pyramid.addTexture("textures/crate.png");
   Pyramid.setColor(glm::vec3{1, 1, 1});
   Pyramid.compile();
 
@@ -255,8 +255,6 @@ int main(int argc, char *argv[]) {
 	deltaTime = currentFrame - lastFrame;
 	lastFrame = currentFrame;
 	//updating data for shader
-	shader_tex.reload();
-	shader_color.reload();
 	Renderer::clear({0, 0, 0, 1});
 	switch (useTextures) {
 	  case 0:

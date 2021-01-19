@@ -10,7 +10,7 @@
 
          Changes
 
-    Oct-2009 - Defined ZPOS64_T to fpos_t on windows and u_int64_t on linux. (might need to find a better why for this)
+    Oct-2009 - Defined ZPOS64_T to fpos_t on windows and  unsigned int64_t on linux. (might need to find a better why for this)
     Oct-2009 - Change to fseeko64, ftello64 and fopen64 so large files would work on linux.
                More if/def section may be needed to support other platforms
     Oct-2009 - Defined fxxxx64 calls to normal fopen/ftell/fseek so they would compile on windows.

@@ -15,6 +15,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "libs/loguru.cpp"
+#include <iostream>
 
 void logInit([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
   loguru::init(argc, argv);

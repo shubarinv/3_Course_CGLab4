@@ -24,7 +24,7 @@ class Application {
    * @param argv used by logging lib
    */
   void init(glm::vec2 windowSize, [[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
-	LOG_S(INFO) << "Hello world!";
+	std::cout << "Hello world!"<<std::endl;
 	LOG_SCOPE_F(INFO, "Libs init");
 	logInit(argc, argv);
 	window = new Window(windowSize);
@@ -45,10 +45,10 @@ class Application {
   void registerKeyCallback(int key, functionType func) {
 	auto posOfPreviouslyRegisteredKeyPressCallbacks = keyPressCallbacks.find(key);
 	if (posOfPreviouslyRegisteredKeyPressCallbacks != keyPressCallbacks.end()) {
-	  LOG_S(INFO) << "Callback for \"" << glfwGetKeyName(key, 0) << "\" was already registered";
+	  std::cout << "Callback for \"" << glfwGetKeyName(key, 0) << "\" was already registered"<<std::endl;
 	}
 	keyPressCallbacks.emplace(key, func);
-	LOG_S(INFO) << "New callback was registered";
+	std::cout << "New callback was registered"<<std::endl;
   }
 
   /**
@@ -94,7 +94,7 @@ class Application {
   }
 
   ~Application() {
-	LOG_S(INFO) << "Application destroyed";
+	std::cout << "Application destroyed";
   }
 /**
  * @brief whether window should close
@@ -115,7 +115,7 @@ class Application {
   void handleKeyboard([[maybe_unused]] GLFWwindow *_window, int key, [[maybe_unused]] int scancode, int action, [[maybe_unused]] int mods) {
 	auto requiredCallback = keyPressCallbacks.find(key);
 	if (requiredCallback != keyPressCallbacks.end()) {
-	  LOG_S(INFO) << "Calling registered callback";
+	  std::cout << "Calling registered callback"<<std::endl;
 	  requiredCallback->second(key, action, this);
 	}
   }

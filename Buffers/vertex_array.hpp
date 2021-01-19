@@ -15,11 +15,11 @@ class VertexArray {
  public:
   VertexArray() {
 	glCall(glGenVertexArrays(1, &rendererID));
-	LOG_S(INFO) << "VertexArray created rendererID: " << rendererID;
+	std::cout << "VertexArray created rendererID: " << rendererID;
   }
   ~VertexArray() {
 	glCall(glDeleteVertexArrays(1, &rendererID));
-	LOG_S(INFO) << "VertexArray destroyed rendererID: " << rendererID;
+	std::cout << "VertexArray destroyed rendererID: " << rendererID;
   }
   void bind() const {
 	glCall(glBindVertexArray(rendererID));

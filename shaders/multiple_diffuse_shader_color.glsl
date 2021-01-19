@@ -1,5 +1,5 @@
 #shader vertex
-#version 410 core
+#version 400 core
 
 layout (location = 0) in vec3 aPos;
 layout (location = 3) in vec3 aNormal;
@@ -23,7 +23,7 @@ void main()
 }
 
     #shader fragment
-    #version 410 core
+    #version 400 core
 
     #define NR_DIFF_LIGHTS 30
 out vec4 FragColor;

@@ -46,10 +46,10 @@ class Texture {
 	unsigned error = lodepng::decode(localBuffer, width, height, filepath);
 	// If there's an error, display it.
 	if (error != 0) {
-	  LOG_S(INFO) << "Texture load error " << error << " : " << lodepng_error_text(error);
+	  std::cout << "Texture load error " << error << " : " << lodepng_error_text(error)<<std::endl;
 	  throw;
 	}
-	LOG_S(INFO) << "Texture loaded successfully!";
+	std::cout << "Texture loaded successfully!"<<std::endl;
   }
 
   static std::vector<float> generateTextureCoords(unsigned int size) {

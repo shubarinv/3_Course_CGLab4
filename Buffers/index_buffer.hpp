@@ -14,7 +14,7 @@ class IndexBuffer {
    * @brief Holds data about vertices
    * @param points std::vector<float>
    */
-   u_int rendererID{};
+    unsigned int rendererID{};
   explicit IndexBuffer(const std::vector<unsigned int>& indices){
 	glCall(glGenBuffers(1, &rendererID));
 	glCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, rendererID));

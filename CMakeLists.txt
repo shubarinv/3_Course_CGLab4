@@ -11,12 +11,17 @@ endif ()
 
 include_directories(libs/glfw/include)
 set(glm_DIR libs/glm/cmake/glm) # if necessary
+set(GLM_INCLUDE_DIR libs/glm/) # if necessary
 include_directories(libs/glad/include)
 include_directories(libs/assimp/include)
+include_directories(libs/glm)
+if (APPLE)
 add_subdirectory(libs/assimp)
+endif ()
 find_package(OpenGL REQUIRED)
 if (WIN32)
-    find_package(glm REQUIRED)
+    find_package(GLM REQUIRED)
+    find_package(assimp REQUIRED)
     find_package(GLFW3 3.3 REQUIRED)
 endif ()
 if (APPLE)

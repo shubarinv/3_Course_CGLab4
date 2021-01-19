@@ -21,26 +21,22 @@ class Shader {
 	std::string vertexShader{};  ///< @brief program for vertex shader
 	std::string fragmentShader{};///< @brief program for fragment shader
   };
-  std::chrono::time_point<std::filesystem::_FilesystemClock> lastWriteToFile;
-  bool bLiveReload = false;
+
  public:
   /**
    * @brief
    * @param _filepath path to file containing shader source code
    */
-  [[maybe_unused]] explicit Shader(const std::string &_filepath, bool bEnableLiveReload = false) {
-	lastWriteToFile = std::filesystem::last_write_time(_filepath);
+  [[maybe_unused]] explicit Shader(const std::string &_filepath) {
 	LOG_SCOPE_F(INFO, "Shader init");
 	filepath = _filepath;
 	source = parseShader();
 	rendererID = createShader();
-	LOG_S(INFO) << "Created shader with id: " << rendererID;
-	if (bEnableLiveReload)enableLiveReload();
-	bind();
+	std::cout << "Created shader with id: " << rendererID<<std::endl;
   }
   ~Shader() {
 	glCall(glDeleteProgram(rendererID));
-	LOG_S(INFO) << "destroyed shader with id: " << rendererID;
+	std::cout << "destroyed shader with id: " << rendererID<<std::endl;
   }
   /**
    * @brief Activates shader.
@@ -58,10 +54,6 @@ class Shader {
    */
   [[maybe_unused]] void setUniform1i(const std::string &name, GLint value) {
 	glCall(glUniform1i(getUniformLocation(name), value));
-  }
-
-  [[maybe_unused]] void setUniform1f(const std::string &name, GLfloat value) {
-	glCall(glUniform1f(getUniformLocation(name), value));
   }
   /**
    * @brief Sets uniform with vec4
@@ -81,23 +73,7 @@ class Shader {
   */
   [[maybe_unused]] void setUniformMat4f(const std::string &name, const glm::mat4 &matrix) {
 	glCall(glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
-  }
-
-  [[maybe_unused]] void reload() {
-	if (isReloadRequired()) {
-	  lastWriteToFile = std::filesystem::last_write_time(filepath);
-	  LOG_SCOPE_F(INFO, "Shader reload");
-	  source = parseShader();
-	  rendererID = createShader(true);
-	  LOG_S(INFO) << "Reloaded shader with id: " << rendererID;
-	}
-  }
-  [[maybe_unused]] void enableLiveReload() {
-	LOG_S(INFO) << "Live reload enabled for Shader(" << this << ") ID: " << rendererID;
-	bLiveReload = true;
-  }
-
-  bool doesUniformExist(const std::string &name){
+  }bool doesUniformExist(const std::string &name){
 	if(getUniformLocation(name,true)==-1){
 	  return false;
 	}
@@ -105,6 +81,7 @@ class Shader {
 	  return true;
 	}
   }
+
  private:
   ShaderProgramSource source;
   std::unordered_map<std::string, int> uniformLocationCache;///< cache of uniforms locations
@@ -120,13 +97,14 @@ class Shader {
 	}
 	glCall(int location = glGetUniformLocation(rendererID, name.c_str()));
 	if (location == -1) {
-	  if(!allowedToFail)LOG_S(WARNING) << "Uniform with name: " << name << " does not exist";
+	  if(!allowedToFail)LOG_S(WARNING) << "Uniform with name: " <<name<< " does not exist"<<std::endl;
 	}
 
 	uniformLocationCache[name] = location;
 	return location;
   }
-  unsigned int rendererID{0};
+
+  unsigned int rendererID{};
   std::string filepath{};
 
   /**
@@ -134,10 +112,10 @@ class Shader {
    * @returns source code for vertex and fragment shader.
    */
   ShaderProgramSource parseShader() {
-	LOG_S(INFO) << "Parsing shader at: " << filepath.c_str();
+	std::cout << "Parsing shader at: " << filepath.c_str()<<std::endl;
 	std::ifstream stream(filepath);
 	if (stream.fail()) {
-	  LOG_S(FATAL) << "Unable to open shader file at: " << filepath.c_str();
+	  LOG_S(FATAL) << "Unable to open shader file at: " << filepath.c_str()<<std::endl;
 	  throw std::runtime_error("Unable to open shader file");
 	}
 	std::string line;
@@ -159,7 +137,7 @@ class Shader {
 		ss[(int)type] << line << "\n";
 	  }
 	}
-	LOG_S(INFO) << "Shader parsed successfully";
+	std::cout << "Shader parsed successfully"<<std::endl;
 	return {ss[0].str(), ss[1].str()};
   }
 
@@ -169,12 +147,9 @@ class Shader {
    * @param source source code of shader program
    * @return returns reference to compiled shader program
    */
-  static unsigned int compileShader(int type, std::string &source, bool isReload = false) {
-	LOG_S(INFO) << "Trying to compile " << (type == GL_VERTEX_SHADER ? "VertexShader " : "FragmentShader ");
+  static unsigned int compileShader(int type, std::string &source) {
+	std::cout << "Trying to compile " << (type == GL_VERTEX_SHADER ? "VertexShader " : "FragmentShader ");
 	unsigned int id = glCreateShader(type);
-	if(source.length()<=24){
-	  LOG_S(FATAL) << "Shader source is empty ";
-	}
 	const char *src = source.c_str();
 	glShaderSource(id, 1, &src, nullptr);
 	glCompileShader(id);
@@ -190,18 +165,11 @@ class Shader {
 	  error += (type == GL_VERTEX_SHADER ? "VertexShader " : "FragmentShader ");
 	  glGetShaderInfoLog(id, length, &length, buf);
 	  error += buf;
-
-
-	  if (!isReload) {
-		LOG_S(FATAL) << error;
-		throw std::runtime_error(error);
-		glDeleteShader(id);
-	  } else {
-		LOG_S(ERROR) << error;
-		return 0;
-	  };
+	  LOG_S(FATAL) << error<<std::endl;
+	  throw std::runtime_error(error);
+	  glDeleteShader(id);
 	}
-	LOG_S(INFO) << "shader compiled successfully";
+	std::cout << "shader compiled successfully"<<std::endl;
 	return id;
   }
 
@@ -209,11 +177,10 @@ class Shader {
  * @brief Creates shader that can be used
  * @return reference to final shader program
  */
-  unsigned int createShader(bool isReload = false) {
+  unsigned int createShader() {
 	unsigned int program = glCreateProgram();
-	unsigned int vShader = compileShader(GL_VERTEX_SHADER, source.vertexShader, isReload);
-	unsigned int fShader = compileShader(GL_FRAGMENT_SHADER, source.fragmentShader, isReload);
-	if ((vShader == 0 || fShader == 0) && isReload) return rendererID;
+	unsigned int vShader = compileShader(GL_VERTEX_SHADER, source.vertexShader);
+	unsigned int fShader = compileShader(GL_FRAGMENT_SHADER, source.fragmentShader);
 	glCall(glAttachShader(program, vShader));
 	glCall(glAttachShader(program, fShader));
 	glCall(glLinkProgram(program));
@@ -221,19 +188,8 @@ class Shader {
 
 	glCall(glDeleteShader(vShader));
 	glCall(glDeleteShader(fShader));
-	return program;
-  }
 
-  [[maybe_unused]] void disableLiveReload() {
-	bLiveReload = false;
-  }
-  bool isReloadRequired() {
-	if (bLiveReload) {
-	  if (lastWriteToFile != std::filesystem::last_write_time(filepath)) {
-		return true;
-	  }
-	}
-	return false;
+	return program;
   }
 };
 

@@ -111,7 +111,7 @@ class Mesh {
   Mesh* addTexture(std::string filePath) {
 	textures.push_back(new Texture(std::move(filePath)));
 	if (!wasBufferDefined(Buffer::TEXTURE_COORDS)) {
-	  LOG_S(INFO) << "Generating textureCoords";
+	  std::cout << "Generating textureCoords";
 	  auto texCoords = Texture::generateTextureCoords(coordinates.size() / 3);
 	  addNewBuffer(TextureBuffer(texCoords));
 	}

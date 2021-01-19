@@ -8,7 +8,7 @@
 class ObjLoader {
  public:
   struct loadedOBJ {
-	std::vector<u_int> indices;
+	std::vector< unsigned int> indices;
 	std::vector<float> vertices;
 	std::vector<float> texCoords;
 	std::vector<float> normals;
@@ -18,13 +18,13 @@ class ObjLoader {
   static std::vector<loadedOBJ> doTheSceneProcessing(const aiScene* scene) {
 	std::vector<loadedOBJ> loadedMeshes;
 	std::vector<Texture> textures;
-	LOG_S(INFO) << "Meshes: " << scene->mNumMeshes;
+	std::cout << "Meshes: " << scene->mNumMeshes<<std::endl;
 	for (int i = 0; i < scene->mNumMeshes; ++i) {
-	  LOG_S(INFO) << "Mesh(" << i << ")";
+	  std::cout << "Mesh(" << i << ")"<<std::endl;
 	  auto mesh = scene->mMeshes[i];
-	  u_int num_faces = mesh->mNumFaces;
+	   unsigned int num_faces = mesh->mNumFaces;
 
-	  std::vector<u_int> indices;
+	  std::vector< unsigned int> indices;
 	  std::vector<float> vertices;
 	  std::vector<float> texCoords;
 	  std::vector<float> normals;
@@ -51,11 +51,11 @@ class ObjLoader {
 		}
 	  }
 
-	  LOG_S(INFO) << "vertices: " << vertices.size();
-	  LOG_S(INFO) << "texCoords: " << texCoords.size();
-	  //LOG_S(INFO) << "indices: " << indices.size();
-	  LOG_S(INFO) << "normals: " << normals.size();
-	  LOG_S(INFO) << "---------------";
+	  std::cout << "vertices: " << vertices.size()<<std::endl;
+	  std::cout << "texCoords: " << texCoords.size()<<std::endl;
+	  //std::cout << "indices: " << indices.size()<<std::endl;
+	  std::cout << "normals: " << normals.size()<<std::endl;
+	  std::cout << "---------------";
 	  loadedMeshes.push_back({indices, vertices, texCoords, normals});
 	}
 	/*
@@ -65,7 +65,7 @@ class ObjLoader {
 	  int texIndex = 0;
 	  aiString path;// filename
 	  if(material->GetTexture(aiTextureType_DIFFUSE, texIndex, &path) == AI_SUCCESS){
-		LOG_S(INFO) << path.C_Str();
+		std::cout << path.C_Str();
 	  }
 	}
 	return{};*/
@@ -87,7 +87,7 @@ class ObjLoader {
 											 aiProcess_Triangulate | aiProcess_SortByPType | aiProcess_JoinIdenticalVertices | aiProcess_GenUVCoords | aiProcess_GenNormals);
 	// If the import failed, report it
 	if (!scene) {
-	  LOG_S(ERROR) << "Failed to load file: " << importer.GetErrorString();
+	  LOG_S(ERROR) << "Failed to load file: " << importer.GetErrorString()<<std::endl;
 	  return {};
 	}
 	// Now we can access the file's contents.
