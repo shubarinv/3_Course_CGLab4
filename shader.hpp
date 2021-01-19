@@ -21,21 +21,26 @@ class Shader {
 	std::string vertexShader{};  ///< @brief program for vertex shader
 	std::string fragmentShader{};///< @brief program for fragment shader
   };
+#if defined(__APPLE__)
   std::chrono::time_point<std::filesystem::_FilesystemClock> lastWriteToFile;
+#endif
   bool bLiveReload = false;
+
  public:
   /**
    * @brief
    * @param _filepath path to file containing shader source code
    */
   [[maybe_unused]] explicit Shader(const std::string &_filepath, bool bEnableLiveReload = false) {
+	if(isMac()){
 	lastWriteToFile = std::filesystem::last_write_time(_filepath);
+	if (bEnableLiveReload) enableLiveReload();}
 	LOG_SCOPE_F(INFO, "Shader init");
 	filepath = _filepath;
 	source = parseShader();
 	rendererID = createShader();
 	LOG_S(INFO) << "Created shader with id: " << rendererID;
-	if (bEnableLiveReload)enableLiveReload();
+
 	bind();
   }
   ~Shader() {
@@ -84,12 +89,14 @@ class Shader {
   }
 
   [[maybe_unused]] void reload() {
-	if (isReloadRequired()) {
-	  lastWriteToFile = std::filesystem::last_write_time(filepath);
-	  LOG_SCOPE_F(INFO, "Shader reload");
-	  source = parseShader();
-	  rendererID = createShader(true);
-	  LOG_S(INFO) << "Reloaded shader with id: " << rendererID;
+	if (isMac()) {
+	  if (isReloadRequired()) {
+		lastWriteToFile = std::filesystem::last_write_time(filepath);
+		LOG_SCOPE_F(INFO, "Shader reload");
+		source = parseShader();
+		rendererID = createShader(true);
+		LOG_S(INFO) << "Reloaded shader with id: " << rendererID;
+	  }
 	}
   }
   [[maybe_unused]] void enableLiveReload() {
@@ -97,14 +104,14 @@ class Shader {
 	bLiveReload = true;
   }
 
-  bool doesUniformExist(const std::string &name){
-	if(getUniformLocation(name,true)==-1){
+  bool doesUniformExist(const std::string &name) {
+	if (getUniformLocation(name, true) == -1) {
 	  return false;
-	}
-	else{
+	} else {
 	  return true;
 	}
   }
+
  private:
   ShaderProgramSource source;
   std::unordered_map<std::string, int> uniformLocationCache;///< cache of uniforms locations
@@ -114,13 +121,13 @@ class Shader {
    * @param name name of uniform
    * @returns location of uniform if successful else -1
    */
-  [[nodiscard]] GLint getUniformLocation(const std::string &name,bool allowedToFail=false) {
+  [[nodiscard]] GLint getUniformLocation(const std::string &name, bool allowedToFail = false) {
 	if (uniformLocationCache.find(name) != uniformLocationCache.end()) {
 	  return uniformLocationCache[name];
 	}
 	glCall(int location = glGetUniformLocation(rendererID, name.c_str()));
 	if (location == -1) {
-	  if(!allowedToFail)LOG_S(WARNING) << "Uniform with name: " << name << " does not exist";
+	  if (!allowedToFail) LOG_S(WARNING) << "Uniform with name: " << name << " does not exist";
 	}
 
 	uniformLocationCache[name] = location;
@@ -172,7 +179,7 @@ class Shader {
   static unsigned int compileShader(int type, std::string &source, bool isReload = false) {
 	LOG_S(INFO) << "Trying to compile " << (type == GL_VERTEX_SHADER ? "VertexShader " : "FragmentShader ");
 	unsigned int id = glCreateShader(type);
-	if(source.length()<=24){
+	if (source.length() <= 24) {
 	  LOG_S(FATAL) << "Shader source is empty ";
 	}
 	const char *src = source.c_str();
@@ -190,7 +197,6 @@ class Shader {
 	  error += (type == GL_VERTEX_SHADER ? "VertexShader " : "FragmentShader ");
 	  glGetShaderInfoLog(id, length, &length, buf);
 	  error += buf;
-
 
 	  if (!isReload) {
 		LOG_S(FATAL) << error;
