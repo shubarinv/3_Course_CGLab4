@@ -158,6 +158,22 @@ void changeIntensity([[maybe_unused]] int key, [[maybe_unused]] int action, [[ma
 	}
   }
 }
+
+void changeDrawMode([[maybe_unused]] int key, [[maybe_unused]] int action, [[maybe_unused]] Application *app) {
+  if (action == GLFW_RELEASE) {
+	if(key==GLFW_KEY_KP_7){
+	  glDepthFunc(GL_LESS);
+	  glCall(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
+	}
+	if(key==GLFW_KEY_KP_8){
+	  glCall(glPointSize(10));
+	  glCall(glPolygonMode(GL_FRONT_AND_BACK, GL_POINT));
+	}
+	if(key==GLFW_KEY_KP_9){
+	  glCall(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
+	}
+  }
+}
 // glfw: whenever the mouse moves, this callback is called
 // -------------------------------------------------------
 void mouse_callback(GLFWwindow *window, double xpos, double ypos) {
@@ -197,6 +213,10 @@ int main(int argc, char *argv[]) {
 
   app.registerKeyCallback(GLFW_KEY_P, changeIntensity);
   app.registerKeyCallback(GLFW_KEY_Y, changeIntensity);
+
+  app.registerKeyCallback(GLFW_KEY_KP_7, changeDrawMode);
+  app.registerKeyCallback(GLFW_KEY_KP_8, changeDrawMode);
+  app.registerKeyCallback(GLFW_KEY_KP_9, changeDrawMode);
 
   app.registerKeyCallback(GLFW_KEY_W, wasdKeyPress);
   app.registerKeyCallback(GLFW_KEY_A, wasdKeyPress);
