@@ -148,13 +148,13 @@ void changeIntensity([[maybe_unused]] int key, [[maybe_unused]] int action, [[ma
 	  lightsManager->getLightByNameDir("3_1")->setIntensity(lightsManager->getLightByNameDir("3_1")->getIntensity() + 0.05f);
 	}
 	if ((key == GLFW_KEY_Y) && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
-	  lightsManager->getLightByNameDir("3_1")->setIntensity(lightsManager->getLightByNameDir("3_1")->getIntensity() - 0.05f);
+	  lightsManager->getLightByNameDir("3_2")->setIntensity(lightsManager->getLightByNameDir("3_2")->getIntensity() + 0.05f);
 	}
 	if(lightsManager->getLightByNameDir("3_1")->getIntensity()>1){
 	  lightsManager->getLightByNameDir("3_1")->setIntensity(0.1);
 	}
-	if(lightsManager->getLightByNameDir("3_1")->getIntensity()<0){
-	  lightsManager->getLightByNameDir("3_1")->setIntensity(0);
+	if(lightsManager->getLightByNameDir("3_2")->getIntensity()>1){
+	  lightsManager->getLightByNameDir("3_2")->setIntensity(0.1);
 	}
   }
 }
@@ -163,7 +163,7 @@ void changeDrawMode([[maybe_unused]] int key, [[maybe_unused]] int action, [[may
   if (action == GLFW_RELEASE) {
 	if(key==GLFW_KEY_KP_7){
 	  glDepthFunc(GL_LESS);
-	  glCall(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
+	  glCall(glPolygonMode(GL_FRONT, GL_FILL));
 	}
 	if(key==GLFW_KEY_KP_8){
 	  glCall(glPointSize(10));
