@@ -163,7 +163,7 @@ void changeDrawMode([[maybe_unused]] int key, [[maybe_unused]] int action, [[may
   if (action == GLFW_RELEASE) {
 	if(key==GLFW_KEY_KP_7){
 	  glDepthFunc(GL_LESS);
-	  glCall(glPolygonMode(GL_FRONT, GL_FILL));
+	  glCall(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
 	}
 	if(key==GLFW_KEY_KP_8){
 	  glCall(glPointSize(10));
